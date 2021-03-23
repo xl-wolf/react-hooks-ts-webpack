@@ -5,34 +5,28 @@ import HeaderComponent from '@/components/layout/header/index'
 import Footer from '@/components/layout/footer/index'
 import './index.css'
 import RouterMap from '@/routers/index'
-import { history } from '@/utils'
+import { getSession, history, setSession } from '@/utils'
 const { useState } = React
 const { Content } = Layout
-interface IProps {
-    history: any,
-}
 interface LayoutState {
     collapsed?: boolean
 }
 
-export default (iProps: IProps) => {
+export default () => {
     const initLayoutState: LayoutState = {
-        collapsed: JSON.parse(sessionStorage.getItem('siderCollapsed'))
+        collapsed: JSON.parse(getSession('siderCollapsed'))
     }
     const [layoutState, setLayoutState] = useState(initLayoutState)
     const { collapsed } = layoutState
     const logout = () => {
-        sessionStorage.setItem('appAuth', 'false')
+        setSession('appAuth', 'false')
         history.replace('/')
     }
     const changePassWord = () => { console.log('changePassWord') }
     const toggleCollapsed = () => {
         setLayoutState({ collapsed: !collapsed })
-        sessionStorage.setItem('siderCollapsed', JSON.stringify(!collapsed))
+        setSession('siderCollapsed', JSON.stringify(!collapsed))
     }
-    React.useEffect(() => {
-      console.log(3434)  
-    })
     return (
         <Layout style={{ height: '100vh' }}>
             <Sider collapsed={collapsed} />
@@ -41,10 +35,10 @@ export default (iProps: IProps) => {
                     getLogout={logout}
                     changePassWord={changePassWord}
                     toggleCollapsed={toggleCollapsed}
-                    collapsed={collapsed} 
-                    currentPosition={sessionStorage.getItem('currentLocation')}/>
+                    collapsed={collapsed}
+                    currentPosition={getSession('currentLocation')} />
                 <Content className="layout-content">
-                    {RouterMap(JSON.parse(sessionStorage.getItem('appAuth')))}
+                    {RouterMap(JSON.parse(getSession('appAuth')))}
                 </Content>
                 <Footer />
             </Layout>

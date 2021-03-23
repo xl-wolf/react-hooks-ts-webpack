@@ -6,7 +6,7 @@ export default () => {
   return (
     <Footer className='foot'>
       <span>github地址：</span>
-      <a target="_blank" href="https://github.com/penglin666/react-ts-manage-template.git">https://github.com/penglin666/react-ts-manage-template.git</a>
+      <a target="_blank" href="https://github.com/xl-wolf/react-hooks-ts-webpack.git">https://github.com/xl-wolf/react-hooks-ts-webpack.git</a>
     </Footer>
   )
 }

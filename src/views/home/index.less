@@ -1,0 +1,38 @@
+.home-wrapper {
+  padding: 100px 0;
+  text-align: center;
+
+  .logo {
+    background: url('./images/logo.png') center center no-repeat;
+    background-size: 100% 100%;
+    animation: circle 15s linear 0s infinite;
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+  }
+
+  &-welcome {
+    font-size: 30px;
+    line-height: 48px;
+    margin: 50px 0 10px;
+
+    &-name {
+      color: #f5222d;
+      padding: 0 20px;
+    }
+  }
+
+  &-common-desc {
+    color: #7cb305;
+  }
+
+  @keyframes circle {
+    from {
+      transform: rotate(0deg);
+    }
+
+    to {
+      transform: rotate(360deg);
+    }
+  }
+}

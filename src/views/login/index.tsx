@@ -1,11 +1,18 @@
 import * as React from 'react'
 import { Button, Form, Input } from 'antd'
-import { history } from '@/utils'
+import { getSession, history, setSession } from '@/utils'
 import './index.less'
+import { menuList } from '@/routers'
 const { Item: FormItem } = Form
 export default () => {
     const login = () => {
-        sessionStorage.setItem('appAuth', 'true')
+        setSession('appAuth', 'true')
+        if (JSON.parse(getSession('currentMenuItem'))) {
+            const { path } = JSON.parse(getSession('currentMenuItem'))
+            return history.push('/main' + path);
+        }
+        setSession('currentLocation', menuList[0].title)
+        setSession('currentMenuItem', JSON.stringify(menuList[0]))
         history.push('/main/home');
     }
     return (
