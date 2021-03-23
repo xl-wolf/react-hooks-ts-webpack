@@ -1,0 +1,47 @@
+.head-wrap {
+    background: #fff;
+    display: flex;
+    padding: 0 20px;
+    font-size: 16px;
+
+    .icon-ctrl {
+        cursor: pointer;
+        margin-right: 6px;
+        transition: .5s cubic-bezier(.645, .045, .355, 1);
+
+        &:hover {
+            color: cornflowerblue;
+        }
+    }
+
+    .current-position {
+        flex: 1;
+        display: flex;
+        align-items: center;
+
+        &.visible {
+            visibility: visible
+        }
+
+        &.not-visible {
+            visibility: hidden
+        }
+    }
+
+    .login-form--wrap {
+        .user-name {
+            display: inline-block;
+            margin-left: 6px;
+        }
+    }
+}
+
+.popover-item {
+    padding: 4px 0;
+    transition: .5s cubic-bezier(.645, .045, .355, 1);
+
+    &:hover {
+        color: cornflowerblue;
+        transform: scale(1.1);
+    }
+}

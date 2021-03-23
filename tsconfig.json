@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "sourceMap": true, //是否生成对应的.map文件
+    "noImplicitAny": true,
+    "module": "commonjs",
+    "target": "es5",
+    "jsx": "react",
+    "paths": { //配合webpack中的resolve.alias才能生效
+      "@/*": [ "./src/*" ]
+    },
+    "allowSyntheticDefaultImports": true
+  },
+  "include": [
+    "./src/**/*"
+  ],
+  "exclude": [
+    "*/node_modules/*"
+  ],
+}
