@@ -1,0 +1,93 @@
+{
+  "id": "1829244",
+  "name": "xl-react-antd-template",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "1610184",
+      "name": "我的模板",
+      "font_class": "wodemoban",
+      "unicode": "e605",
+      "unicode_decimal": 58885
+    },
+    {
+      "icon_id": "1683068",
+      "name": "gesture_swipe-right-h",
+      "font_class": "gesture_swipe-right-h",
+      "unicode": "e66f",
+      "unicode_decimal": 58991
+    },
+    {
+      "icon_id": "608274",
+      "name": "地图",
+      "font_class": "ditumap29",
+      "unicode": "e67a",
+      "unicode_decimal": 59002
+    },
+    {
+      "icon_id": "4933446",
+      "name": "折线图",
+      "font_class": "zhexiantu",
+      "unicode": "e76c",
+      "unicode_decimal": 59244
+    },
+    {
+      "icon_id": "5203255",
+      "name": "混合",
+      "font_class": "hunhe",
+      "unicode": "e625",
+      "unicode_decimal": 58917
+    },
+    {
+      "icon_id": "11757073",
+      "name": "钢琴",
+      "font_class": "gangqin",
+      "unicode": "e739",
+      "unicode_decimal": 59193
+    },
+    {
+      "icon_id": "705650",
+      "name": "3d",
+      "font_class": "3d",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    },
+    {
+      "icon_id": "2280756",
+      "name": "vr",
+      "font_class": "vr",
+      "unicode": "e61d",
+      "unicode_decimal": 58909
+    },
+    {
+      "icon_id": "13964922",
+      "name": "3D",
+      "font_class": "D",
+      "unicode": "e60d",
+      "unicode_decimal": 58893
+    },
+    {
+      "icon_id": "3164598",
+      "name": "百度地图旗标点击事件",
+      "font_class": "baidudituqibiaodianjishijian",
+      "unicode": "e626",
+      "unicode_decimal": 58918
+    },
+    {
+      "icon_id": "10246080",
+      "name": "3D",
+      "font_class": "D1",
+      "unicode": "e69c",
+      "unicode_decimal": 59036
+    },
+    {
+      "icon_id": "13933353",
+      "name": "高德地图",
+      "font_class": "gaodeditu",
+      "unicode": "e679",
+      "unicode_decimal": 59001
+    }
+  ]
+}

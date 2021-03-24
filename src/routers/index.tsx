@@ -1,42 +1,43 @@
 import * as React from 'react';
 import { lazy, Suspense } from 'react';
-import { HomeOutlined, FileSearchOutlined, FrownOutlined,HeatMapOutlined } from '@ant-design/icons';
+import { HomeOutlined, FileSearchOutlined, FrownOutlined } from '@ant-design/icons';
 import { Route, Switch, RouteProps, Redirect } from 'react-router-dom';
 import Loading from '@/components/loading'
 import NotFound from '@/components/404/index'
 import { SiderMenu } from '@/types/SiderMenu';
+import "@/assets/iconfont/iconfont.css"
 
 export const menuList: SiderMenu[] = [
   {
-      key: '1',
-      title: '首页',
-      path: '/home',
-      icon: <HomeOutlined />
+    key: '1',
+    title: '首页',
+    path: '/home',
+    icon: <HomeOutlined />
   },
   {
-      key: '2',
-      title: '关于我们',
-      icon: <FileSearchOutlined />,
-      children: [
-          {
-              key: '2-1',
-              title: '关于',
-              path: '/about',
-              icon: <FrownOutlined />,
-          }
-      ]
+    key: '2',
+    title: '关于我们',
+    icon: <FileSearchOutlined />,
+    children: [
+      {
+        key: '2-1',
+        title: '关于',
+        path: '/about',
+        icon: <FrownOutlined />,
+      }
+    ]
   },
   {
-      key: '3',
-      title: '高德地图',
-      path: '/amap',
-      icon: <HeatMapOutlined />
+    key: '3',
+    title: '高德地图',
+    path: '/amap',
+    icon: <i className="iconfont icon-gaodeditu" />
   },
   {
-      key: '4',
-      title: '百度地图',
-      path: '/bmap',
-      icon: <HeatMapOutlined />
+    key: '4',
+    title: '百度地图',
+    path: '/bmap',
+    icon: <i className="iconfont icon-baidudituqibiaodianjishijian" />
   },
 ]
 

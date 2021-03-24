@@ -11,10 +11,8 @@ const loadLib = (src: string, resolve: (data: any) => void, reject: (str: string
   const lib = document.createElement('script')
   lib.setAttribute('type', 'text/javascript')
   lib.setAttribute('src', src)
-  lib.onerror = function () {
-    reject('地图初始化失败')
-  }
-  lib.onload = function () {
+  lib.onerror = () => { reject('地图插件加载失败') }
+  lib.onload = () => {
     count += 1;
     if (count === libs.length) {
       // libs全部加载成功才返回
@@ -24,8 +22,8 @@ const loadLib = (src: string, resolve: (data: any) => void, reject: (str: string
   body.appendChild(lib)
 }
 
-export const AsyncBMapLoader = () => {
-  return new Promise((resolve, reject) => {
+export const asyncBMapLoader = () => {
+  return new Promise((resolve: (data: any) => void, reject: (str: string) => void) => {
     if (window.BMap && window.BMapLib) {
       // 已经加载百度地图与所需插件则直接返回
       resolve({ BMap: window.BMap, BMapLib: window.BMapLib, msg: '本地地图' })
@@ -35,15 +33,13 @@ export const AsyncBMapLoader = () => {
       bmap.type = 'text/javascript'
       bmap.src = 'https://api.map.baidu.com/api?v=3.0&ak=hlLd70ecS9icuYL3RiQqGeCEl0Pm3LKl&callback=MapLoadSuccess'
       body.appendChild(bmap)
-      window.MapLoadSuccess = function () {
+      window.MapLoadSuccess = () => {
         // BMap加载完成，开始加载libs
         libs.forEach(lib => {
           loadLib(lib, resolve, reject)
         })
       }
-      bmap.onerror = function () {
-        reject('地图初始化失败')
-      }
+      bmap.onerror = () => { reject('地图初始化失败') }
     }
   })
 }

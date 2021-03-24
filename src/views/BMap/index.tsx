@@ -1,28 +1,20 @@
 import * as React from 'react';
 import { message, Modal } from 'antd'
-import { AsyncBMapLoader } from '@/utils/index'
+import { asyncBMapLoader } from '@/utils/index'
 import {
   style_1,
   // style_2
 } from './style'
 import './index.less'
 const { useState, useEffect } = React
-interface BMapState {
-  mapRef: any
-  currentPositionPointsArray: number[]
-  currentPositionPointsObj: any
-}
+
 export default () => {
-  const initialBMapState: BMapState = {
-    mapRef: null,
-    currentPositionPointsArray: [118.10388605, 24.48923061],
-    currentPositionPointsObj: null
-  }
-  const [bMapState, setbMapState] = useState(initialBMapState)
-  // console.log(bMapState)
-  let { mapRef, currentPositionPointsArray, currentPositionPointsObj } = bMapState
+  let [mapRef, setmapRef] = useState(null)
+  let [currentPositionPointsArray, setcurrentPositionPointsArray] = useState([118.10388605, 24.48923061])
+  let [currentPositionPointsObj, setcurrentPositionPointsObj] = useState(null)
+  let [allMarkers, setallMarkers] = useState([])
   useEffect(() => {
-    AsyncBMapLoader().then(res => {
+    asyncBMapLoader().then(res => {
       console.log(res)
       initMap()
     })
@@ -37,113 +29,77 @@ export default () => {
     mapRef.centerAndZoom(point, 12) // 初始化地图,设置中心点坐标和地图级别
     mapRef.setMapStyleV2({ styleJson: style_1 }) // 自定义地图
     // 浏览器获取当前定位
-    try {
-      const curPosiObj = await getCurPosition()
-      console.log('当前定位信息', curPosiObj)
-      getLocSuccess(curPosiObj)
-    } catch (error) {
-      console.log(error)
-      message.error(error.msg)
-      Modal.confirm({
-        title: '是否启用默认定位?',
-        okText: '是',
-        okType: 'danger',
-        cancelText: '否',
-        onOk: () => {
-          enableDefaultLoc(point)
-        },
-        onCancel() {
-          console.log('Cancel');
-        },
-      });
-    }
+    // try {
+    //   const curPosiObj:any = await getCurPosition()
+    //   setcurrentPositionPointsArray(currentPositionPointsArray=[curPosiObj.point.lng,curPosiObj.point.lat])
+    //   console.log('当前定位信息', curPosiObj)
+    //   getLocSuccess(curPosiObj)
+    // } catch (error) {
+    //   console.log(error)
+    //   message.error(error.msg)
+    //   Modal.confirm({
+    //     title: '是否启用默认定位?',
+    //     okText: '是',
+    //     okType: 'danger',
+    //     cancelText: '否',
+    //     onOk: () => {
+    //       enableDefaultLoc(point)
+    //     },
+    //     onCancel() {
+    //       console.log('Cancel');
+    //     },
+    //   });
+    // }
 
+    enableDefaultLoc(point)
     // 生成点聚合
     addBMapMarkerClusterer()
     // 添加工具条和比例尺
     controllerTools()
+    setmapRef(mapRef)
   }
   // 获取当前定位成功
   const getLocSuccess = (curPosiObj: any) => {
     const { lng, lat } = curPosiObj
-    currentPositionPointsObj = new BMap.Point(lng, lat)
+    setcurrentPositionPointsObj(currentPositionPointsObj = new BMap.Point(lng, lat))
     mapRef.panTo(currentPositionPointsObj)
-    const iconConfig = { url: require('./images/red.png').default, size: { width: 48, height: 48 } }
-    const mk = addBMapMarker(currentPositionPointsObj, true, iconConfig)
-    generateNearByNMarkers(mk)
-    drawCircle()
-
-    mk.enableDragging() //点标记可拖拽
-    // mk.disableDragging() //点标记不可拖拽
-
-    mk.addEventListener('click', function () {
-      const windowConfig = {}
-      bdMapAddInfoWindow(windowConfig, this, true)
-    })
-
-    mk.addEventListener('dragend', function (e: any) {
-      console.log(e)
-      // setCurrentPositionPointsObj(e.point )
-      currentPositionPointsObj = e.point
-      console.log(currentPositionPointsObj)
-      mapRef.panTo(currentPositionPointsObj)
-      const allMarkers = mapRef.getOverlays()
-      // 移除自身以外的其他点标记
-      allMarkers.forEach((marker: any) => {
-        if (marker !== this) {
-          removeBMapMarker(marker)
-        }
-      })
-      // 随机生成当前位置旁边的N个点标记
-      generateNearByNMarkers(e, 20)
-      drawCircle(7000)
-    })
+    enableDefaultLoc(currentPositionPointsObj)
   }
   // 获取当前定位失败，启用默认定位
   const enableDefaultLoc = (point: any) => {
-    currentPositionPointsObj = point
+    setcurrentPositionPointsObj(currentPositionPointsObj = point)
     const iconConfig = { url: require('./images/red.png').default, size: { width: 48, height: 48 } }
     const mk = addBMapMarker(currentPositionPointsObj, true, iconConfig)
     generateNearByNMarkers(mk)
     drawCircle()
-
     mk.enableDragging() //点标记可拖拽
     // mk.disableDragging() //点标记不可拖拽
-
     mk.addEventListener('click', function () {
       const windowConfig = {}
       bdMapAddInfoWindow(windowConfig, this, true)
     })
 
     mk.addEventListener('dragend', function (e: any) {
-      console.log(e)
-      // setCurrentPositionPointsObj(e.point )
-      currentPositionPointsObj = e.point
-      console.log(currentPositionPointsObj)
+      // console.log(e)
+      setcurrentPositionPointsObj(currentPositionPointsObj = e.point)
+      // console.log(currentPositionPointsObj)
       mapRef.panTo(currentPositionPointsObj)
       const allMarkers = mapRef.getOverlays()
       // 移除自身以外的其他点标记
-      allMarkers.forEach((marker: any) => {
-        if (marker !== this) {
-          removeBMapMarker(marker)
-        }
-      })
+      allMarkers.forEach((marker: any) => marker !== this && removeBMapMarker(marker))
       // 随机生成当前位置旁边的N个点标记
       generateNearByNMarkers(e, 20)
       drawCircle(7000)
     })
   }
   // 移除点标记
-  const removeBMapMarker = (marker: any) => {
-    // 移除指定点标记
-    marker && mapRef.removeOverlay(marker)
-  }
+  const removeBMapMarker = (marker: any) => { marker && mapRef.removeOverlay(marker); allMarkers = [] }
   // 添加点标记
   const addBMapMarker = (point: any, animation: boolean, iconConfig: any) => {
     let marker
     if (iconConfig) {
-      const { url, size } = iconConfig
-      const icon = new BMap.Icon(url, new BMap.Size(size['width'], size['height']))
+      const { url, size: { width, height } } = iconConfig
+      const icon = new BMap.Icon(url, new BMap.Size(width, height))
       marker = new BMap.Marker(point, { icon })
     } else {
       marker = new BMap.Marker(point)
@@ -153,15 +109,14 @@ export default () => {
     return marker
   }
   // 随机生成当前位置旁边的N个点标记-->后期的ajax请求
-  const generateNearByNMarkers = (e: any, count: number = 10) => {
+  const generateNearByNMarkers = (e: any, count: number = 20) => {
     for (let i = 0; i < count; i++) {
       const point = new BMap.Point(
         e.point['lng'] + (Math.random() - 0.5) * 0.08,
         e.point['lat'] + (Math.random() - 0.5) * 0.08
       )
       // 把地图上所有的点压人当前地图内的点数组
-      let pointsArray = []
-      pointsArray.push(point)
+      allMarkers.push(point)
       const iconConfig = { url: require('./images/blue.png').default, size: { width: 20, height: 20 } }
       const marker = addBMapMarker(point, true, iconConfig)
       marker.dataId = i
@@ -175,8 +130,7 @@ export default () => {
   const bdMapAddInfoWindow = (windowConfig: any, marker: any, isCurrent: any) => {
     // console.log(marker)
     const opts = windowConfig
-    const { lat, lng } = marker.point
-    const { dataId } = marker
+    const { point: { lat, lng }, dataId } = marker
     const point = new BMap.Point(lng, lat)
     let sContent
     if (isCurrent) {
@@ -235,7 +189,6 @@ export default () => {
   }
   // 浏览器获取当前定位
   const getCurPosition = () => {
-    /*global BMAP_STATUS_SUCCESS*/
     return new Promise((resolve, reject) => {
       const geolocation = new BMap.Geolocation()
       geolocation.getCurrentPosition(
@@ -275,9 +228,7 @@ export default () => {
     mapRef.addControl(top_left_navigation)
   }
   // 返回地图中心点（当前定位点）
-  const backToMapCenter = () => {
-    mapRef.panTo(currentPositionPointsObj)
-  }
+  const backToMapCenter = () => { mapRef.panTo(currentPositionPointsObj) }
   // 画圆
   const drawCircle = (
     radius = 5000,

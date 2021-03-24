@@ -32,9 +32,12 @@ export default () => {
       mapStyle: style2 //自定义地图样式，需要线上定制发布后使用
     })
     // 浏览器获取当前定位
-    // const cur = await getCurrentPosition()
-    // console.log(cur)
-
+    const cur:any = await getCurrentPosition()
+    console.log(cur)
+    if (cur) {
+      const { position: { lng, lat } } = cur
+      setcurrentPosition(currentPosition = [lng, lat])
+    }
     // 添加点标记
     const icon = new AMap.Icon({
       size: new AMap.Size(48, 48),
@@ -43,12 +46,11 @@ export default () => {
       imageOffset: new AMap.Pixel(0, 0)
     })
     const mk = addAMapMarker(icon, currentPosition, true)
-
     // 画圆
     const circleOpt = {
       map: mapRef,
       center: currentPosition,
-      radius: 5000,
+      radius: 100,
       strokeColor: '#0ff',
       strokeOpacity: 1,
       strokeWeight: 2,
@@ -88,7 +90,7 @@ export default () => {
       const circleOpt = {
         map: mapRef,
         center: currentPosition,
-        radius: 7000,
+        radius: 200,
         strokeColor: '#0ff',
         strokeOpacity: 1,
         strokeWeight: 2,
@@ -104,6 +106,7 @@ export default () => {
     // addAMapMarkerClusterer()
     // 添加旋转、倾斜、复位、缩放在内的地图控件
     addAMapCtrl()
+    setmapRef(mapRef)
   }
   // 添加点聚合
   const addAMapMarkerClusterer = () => {
@@ -139,12 +142,13 @@ export default () => {
         enableHighAccuracy: true, //是否使用高精度定位，默认:true
         timeout: 20000, //超过10秒后停止定位，默认：5s
         buttonPosition: 'RB', //定位按钮的停靠位置
-        markerOptions: {
-          //自定义定位点样式，同Marker的Options
-          offset: new AMap.Pixel(-18, -36),
-          content:
-            '<img src="https://a.amap.com/jsapi_demos/static/resource/img/user.png" style="width:36px;height:36px"/>'
-        },
+        markerOptions: null,
+        // markerOptions: {
+        //   //自定义定位点样式，同Marker的Options
+        //   offset: new AMap.Pixel(-18, -36),
+        //   content:
+        //     '<img src="https://a.amap.com/jsapi_demos/static/resource/img/user.png" style="width:36px;height:36px"/>'
+        // },
         buttonOffset: new AMap.Pixel(10, 10), //定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
         zoomToAccuracy: true //定位成功后是否自动调整地图视野到定位点
       })
@@ -178,8 +182,8 @@ export default () => {
         imageOffset: new AMap.Pixel(0, 0)
       })
       const position = [
-        currentPosition[0] + (Math.random() - 0.5) * 0.08,
-        currentPosition[1] + (Math.random() - 0.5) * 0.08
+        currentPosition[0] + (Math.random() - 0.5) * 0.002,
+        currentPosition[1] + (Math.random() - 0.5) * 0.002
       ]
       const marker = addAMapMarker(icon, position)
       marker.dataId = i + 'dataId'
@@ -221,7 +225,7 @@ export default () => {
     return marker
   }
   // 移除指定点标记
-  const removeAMapMarker = (mk: any) => { mapRef.remove(mk) }
+  const removeAMapMarker = (mk: any) => { mapRef.remove(mk);setcurrentMarkersArray(currentMarkersArray=[]) }
   // 画圆
   const drawCircle = (circleOpt: any) => { setcircle(circle = new AMap.Circle(circleOpt)) }
   // 移除圆
@@ -232,11 +236,11 @@ export default () => {
   const removeAMapInfoWindow = () => { mapRef.clearInfoWindow() }
   // 返回地图中心点（当前定位点）
   const backToMapCenter = () => { mapRef.panTo(currentPosition) }
+
   return (
     <div className="amap-wrapper">
       <div id="amap-container"></div>
       <div title="点击聚焦当前点" className="backCenter-AMap" onClick={backToMapCenter} />
     </div>
   )
-
 }
