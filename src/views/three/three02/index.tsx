@@ -12,11 +12,11 @@ export default () => {
     let [smallSphere1, setsmallSphere1] = useState(null)
     let [sphereGroup, setsphereGroup] = useState(null)
     let [cameraControls, setcameraControls] = useState(null)
-    const [FAR, setFAR] = useState(500)
-    const [NEAR, setNEAR] = useState(1)
-    const [VIEW_ANGLE, setVIEW_ANGLE] = useState(45)
     let [WIDTH, setWIDTH] = useState(null)
     let [HEIGHT, setHEIGHT] = useState(null)
+    const FAR = 500
+    const NEAR = 1
+    const VIEW_ANGLE = 45
     useEffect(() => {
         init()
         setTimeout(onWindowResize, 0)
