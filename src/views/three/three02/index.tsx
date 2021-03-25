@@ -19,6 +19,7 @@ export default () => {
     let [HEIGHT, setHEIGHT] = useState(null)
     useEffect(() => {
         init()
+        setTimeout(onWindowResize,0)
         return () => { window.removeEventListener("resize", onWindowResize) }
     }, [])
     const init = async () => {
@@ -185,5 +186,4 @@ export default () => {
         }
     }
     return <div id="three02-container" style={{ height: '100%' }}></div>
-
 }

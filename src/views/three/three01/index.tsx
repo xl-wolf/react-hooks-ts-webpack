@@ -10,6 +10,7 @@ export default () => {
     let [HEIGHT, setHEIGHT] = useState(null)
     useEffect(() => {
         init()
+        setTimeout(onWindowResize,0)
         window.onresize = () => onWindowResize()
         return () => { }
     }, [])
@@ -38,6 +39,7 @@ export default () => {
         renderer.render(scene, camera)
     }
     const onWindowResize = () => {
+        console.log('onWindowResize')
         const VRcontainer = document.getElementById('three01-container')
         // 加if判断防止事件监听在离开本页面后因获取不到VRcontainer而报错
         if (VRcontainer) {

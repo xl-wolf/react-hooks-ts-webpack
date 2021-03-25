@@ -33,7 +33,7 @@ export default () => {
     const changePassWord = () => { console.log('changePassWord') }
     const toggleCollapsed = () => {
         // 派发window resize事件
-        // window.dispatchEvent(new Event('resize'))
+        window.dispatchEvent(new Event('resize'))
         setLayoutState({ collapsed: !collapsed })
         setSession('siderCollapsed', JSON.stringify(!collapsed))
     }

@@ -29,7 +29,8 @@ export default () => {
         settargets(targets = { table: [], sphere: [], helix: [], grid: [] })
         init()
         animate()
-        return () => { }
+        setTimeout(onWindowResize,0)
+        return () => { window.removeEventListener('resize', onWindowResize, false) }
     }, [])
     const clearInterval = (timer: any) => {
         clearInterval(timer)
@@ -184,6 +185,7 @@ export default () => {
     const onWindowResize = () => {
         console.log('onWindowResize')
         const container = document.getElementById('three03-container')
+        console.log(container.clientWidth,container.clientHeight)
         setWIDTH(WIDTH = container.clientWidth)
         setHEIGHT(HEIGHT = container.clientHeight)
         camera.aspect = WIDTH / HEIGHT

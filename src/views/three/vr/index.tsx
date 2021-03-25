@@ -27,6 +27,7 @@ export default () => {
     let [animationLooper, setanimationLooper] = useState(null)
     useEffect(() => {
         init()
+        setTimeout(onWindowResize,0)
         return () => { window.removeEventListener("resize", onWindowResize); setanimationLooper(animationLooper = null) }
     }, [])
     const init = async () => {

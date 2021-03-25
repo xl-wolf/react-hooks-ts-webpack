@@ -9,23 +9,9 @@ import './index.less'
 interface SiderProps {
     collapsed: boolean
 }
-interface State {
-    defaultSelectedKeys: string[]
-    defaultOpenKeys: string[]
-}
 
 export default (SiderProps: SiderProps) => {
-    const initialSiderState: State = {
-        defaultSelectedKeys: [],
-        defaultOpenKeys: []
-    }
     const { collapsed } = SiderProps
-    const { defaultSelectedKeys, defaultOpenKeys } = initialSiderState
-    if (JSON.parse(getSession('currentMenuItem'))) {
-        const { key } = JSON.parse(getSession('currentMenuItem'))
-        initialSiderState.defaultSelectedKeys = [key]
-        initialSiderState.defaultOpenKeys = [key.slice(0, -2)] // 此处需要在配置路由的时候配合
-    }
     const recursiveFindCurMenuItem = (list: SiderMenu[], curItem: any): SiderMenu => {
         for (let i = 0; i < list.length; i++) {
             const currentMenuItem = list.find((it) => it.key === curItem.key)
@@ -51,6 +37,13 @@ export default (SiderProps: SiderProps) => {
             }
             return (<Item key={key} icon={icon}>{title}</Item>)
         })
+    }
+    let defaultSelectedKeys
+    let defaultOpenKeys
+    if (JSON.parse(getSession('currentMenuItem'))) {
+        const { key } = JSON.parse(getSession('currentMenuItem'))
+        defaultSelectedKeys = [key]
+        defaultOpenKeys = [key.slice(0, -2)] // 此处需要在配置路由的时候配合
     }
     return (
         <Sider collapsed={collapsed}>
