@@ -6,6 +6,15 @@ declare interface Window{
     BMapLib:any
     MapLoadSuccess:any
 }
+declare module 'three'
+declare module 'three/examples/jsm/misc/RollerCoaster.js'
+declare module 'three/examples/jsm/controls/OrbitControls.js'
+declare module  'three/examples/jsm/objects/Reflector.js'
+declare module 'three/examples/jsm/libs/tween.module.min.js'
+declare module 'three/examples/jsm/controls/TrackballControls.js'
+declare module 'three/examples/jsm/renderers/CSS3DRenderer.js'
+declare const TrackballControls: any
+declare const TWEEN: any
 declare const BMap: any
 declare const BMapLib: any
 declare const BMAP_ANIMATION_DROP: any

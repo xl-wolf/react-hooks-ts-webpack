@@ -5,9 +5,8 @@ import { getSession, history, setSession } from '@/utils'
 import { menuList } from '@/routers'
 const { Sider } = Layout
 const { Item, SubMenu } = Menu
-
-interface SiderProps //extends RouteComponentProps
-{
+import './index.less'
+interface SiderProps {
     collapsed: boolean
 }
 interface State {
@@ -20,6 +19,8 @@ export default (SiderProps: SiderProps) => {
         defaultSelectedKeys: [],
         defaultOpenKeys: []
     }
+    const { collapsed } = SiderProps
+    const { defaultSelectedKeys, defaultOpenKeys } = initialSiderState
     if (JSON.parse(getSession('currentMenuItem'))) {
         const { key } = JSON.parse(getSession('currentMenuItem'))
         initialSiderState.defaultSelectedKeys = [key]
@@ -44,17 +45,19 @@ export default (SiderProps: SiderProps) => {
     const recursiveHandleMenu = (menuTree: SiderMenu[]) => {
         return menuTree?.map(({ key, title, icon, children }) => {
             if (children?.length) {
-                return <SubMenu key={key} title={title} icon={icon}>
+                return <SubMenu className={collapsed ? 'collapsed-submenu-title-desc' : ''} key={key} title={title} icon={icon}>
                     {recursiveHandleMenu(children)}
                 </SubMenu>
             }
             return (<Item key={key} icon={icon}>{title}</Item>)
         })
     }
-    const { collapsed } = SiderProps
-    const { defaultSelectedKeys, defaultOpenKeys } = initialSiderState
     return (
         <Sider collapsed={collapsed}>
+            <div className="logo-wrapper">
+                <div className="logo" />
+                {!collapsed && <div>xl-wolf</div>}
+            </div>
             <Menu
                 theme={'dark'}
                 onClick={(item) => menuItemClick(item)}

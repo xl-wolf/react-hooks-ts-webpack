@@ -1,0 +1,94 @@
+.three03-container-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+
+    #three03-container {
+        height: 100%;
+        background: #000;
+    }
+
+    #three03-container-ctrl {
+        position: absolute;
+        top: 40px;
+        width: calc(100% - 40px);
+        padding-right: 20px;
+        text-align: right;
+        color: #fff;
+    }
+
+    #three03-container-menu {
+        position: absolute;
+        bottom: 24px;
+        width: 100%;
+        // width: calc(100% - 240px);
+        text-align: center;
+    }
+
+    .element {
+        width: 120px;
+        height: 160px;
+        box-shadow: 0px 0px 12px rgba(0, 255, 255, 0.5);
+        border: 1px solid rgba(127, 255, 255, 0.25);
+        font-family: Helvetica, sans-serif;
+        text-align: center;
+        line-height: normal;
+        cursor: default;
+
+        &:hover {
+            box-shadow: 0px 0px 12px rgba(0, 255, 255, 0.75);
+            border: 1px solid rgba(127, 255, 255, 0.75);
+        }
+
+        &.number {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 12px;
+            color: rgba(127, 255, 255, 0.75);
+        }
+
+        .symbol {
+            position: absolute;
+            top: 40px;
+            left: 0px;
+            right: 0px;
+            font-size: 60px;
+            font-weight: bold;
+            color: rgba(255, 255, 255, 0.75);
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.95);
+        }
+
+        .details {
+            position: absolute;
+            bottom: 15px;
+            left: 0px;
+            right: 0px;
+            font-size: 12px;
+            color: rgba(127, 255, 255, 0.75);
+        }
+    }
+
+    button {
+        color: rgba(127, 255, 255, 0.75);
+        background: transparent;
+        outline: 1px solid rgba(127, 255, 255, 0.75);
+        border: 0px;
+        padding: 5px 10px;
+        cursor: pointer;
+
+        &:hover {
+            background-color: rgba(0, 255, 255, 0.5);
+        }
+
+        &:active {
+            color: #000000;
+            background-color: rgba(0, 255, 255, 0.75);
+        }
+
+        &.active {
+            color: #000000;
+            background-color: rgba(0, 255, 255, 0.75);
+        }
+    }
+}

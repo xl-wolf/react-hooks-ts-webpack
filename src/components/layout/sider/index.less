@@ -1,0 +1,35 @@
+.logo-wrapper {
+    display: flex;
+    height: 64px;
+    background: #2b2f3a;
+    align-items: center;
+    justify-content: center;
+
+    div.logo {
+        background: url('@/views/home/images/logo.png') center center no-repeat;
+        background-size: 100% 100%;
+        animation: circle 15s linear 0s infinite;
+        width: 30px;
+        height: 30px;
+        margin-right: 12px;
+    }
+
+    div:nth-child(2) {
+        font-size: 14px;
+        color: #fff
+    }
+}
+.collapsed-submenu-title-desc{
+    span{
+        visibility: hidden;
+    }
+}
+@keyframes circle {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}

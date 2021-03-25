@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Layout } from 'antd';
+import { Layout, Modal } from 'antd';
 import Sider from './sider/index'
 import HeaderComponent from '@/components/layout/header/index'
 import Footer from '@/components/layout/footer/index'
@@ -19,11 +19,21 @@ export default () => {
     const [layoutState, setLayoutState] = useState(initLayoutState)
     const { collapsed } = layoutState
     const logout = () => {
-        setSession('appAuth', 'false')
-        history.replace('/')
+        Modal.confirm({
+            title: "注销",
+            content: "确定要退出系统吗?",
+            okText: "确定",
+            cancelText: "取消",
+            onOk: () => {
+                setSession('appAuth', 'false')
+                history.replace('/')
+            },
+        })
     }
     const changePassWord = () => { console.log('changePassWord') }
     const toggleCollapsed = () => {
+        // 派发window resize事件
+        // window.dispatchEvent(new Event('resize'))
         setLayoutState({ collapsed: !collapsed })
         setSession('siderCollapsed', JSON.stringify(!collapsed))
     }
