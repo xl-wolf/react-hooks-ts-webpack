@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import * as Three from 'three'
 import { TWEEN } from 'three/examples/jsm/libs/tween.module.min.js'
 import { TrackballControls } from 'three/examples/jsm/controls/TrackballControls.js'
@@ -12,9 +12,8 @@ export default () => {
     let [renderer, setrenderer] = useState(null)
     let [WIDTH, setWIDTH] = useState(null)
     let [HEIGHT, setHEIGHT] = useState(null)
-    let [timer, settimer] = useState(null)
-    let [paused, setpaused] = useState(null)
-    let [idx, setidx] = useState(null)
+    let [paused, setpaused] = useState(false)
+    let [idx, setidx] = useState(0)
     let [button1, setbutton1] = useState(null)
     let [button2, setbutton2] = useState(null)
     let [button3, setbutton3] = useState(null)
@@ -24,31 +23,32 @@ export default () => {
     let [targets, settargets] = useState(null)
     let [controls, setcontrols] = useState(null)
     let [domArray, setdomArray] = useState([])
+    const timer = useRef(null)
     useEffect(() => {
         settable(table = tableEl)
         settargets(targets = { table: [], sphere: [], helix: [], grid: [] })
         init()
         animate()
-        setTimeout(onWindowResize,0)
-        return () => { window.removeEventListener('resize', onWindowResize, false) }
+        setTimeout(onWindowResize, 0)
+        return () => {
+            myClearInterval(timer)
+            window.removeEventListener('resize', onWindowResize, false)
+        }
     }, [])
-    const clearInterval = (timer: any) => {
-        clearInterval(timer)
-        settimer(timer = null)
+    const myClearInterval = (timer: any) => {
+        clearInterval(timer.current)
+        timer.current = null
     }
     const toggle = () => {
         setpaused(paused = !paused)
-        paused ? swiperItem() : clearInterval(timer)
+        paused ? swiperItem() : myClearInterval(timer)
     }
     const swiperItem = () => {
-        settimer(timer = timer = setInterval(() => {
-            if (idx < 3) {
-                setidx(idx++)
-            } else {
-                setidx(idx = 0)
-            }
+        timer.current = setInterval(() => {
+            console.log('setInterval')
+            idx < 3 ? setidx(idx = idx + 1) : setidx(idx = 0);
             [button1, button2, button3, button4][idx].click()
-        }, 10000))
+        }, 7000)
     }
     const init = () => {
         const container = document.getElementById('three03-container')
@@ -133,22 +133,22 @@ export default () => {
         controls.addEventListener('change', render)
 
         setbutton1(button1 = document.getElementById('table'))
-        setbutton1(button2 = document.getElementById('sphere'))
-        setbutton1(button3 = document.getElementById('helix'))
-        setbutton1(button4 = document.getElementById('grid'))
+        setbutton2(button2 = document.getElementById('sphere'))
+        setbutton3(button3 = document.getElementById('helix'))
+        setbutton4(button4 = document.getElementById('grid'))
         // 默认为表格
         !domArray.some((domi: any) => { return button1 === domi }) && domArray.push(button1)
         toggleActiveClass(button1)
-        addButtonListerner(button1, 'table')
-        addButtonListerner(button2, 'sphere')
-        addButtonListerner(button3, 'helix')
-        addButtonListerner(button4, 'grid')
+        addButtonListerner(button1, 'table', 0)
+        addButtonListerner(button2, 'sphere', 1)
+        addButtonListerner(button3, 'helix', 2)
+        addButtonListerner(button4, 'grid', 3)
         transform(targets.table, 2000)
         window.addEventListener('resize', onWindowResize, false)
     }
-    const addButtonListerner = (btn: any, type: any) => {
+    const addButtonListerner = (btn: any, type: string, index: number) => {
         btn.addEventListener('click', () => {
-            idx = 0
+            setidx(idx = index)
             transform(targets[type], 2000)
             !domArray.some((domi: any) => { return btn === domi }) && domArray.push(btn)
             toggleActiveClass(btn)
@@ -183,15 +183,15 @@ export default () => {
             .start()
     }
     const onWindowResize = () => {
-        console.log('onWindowResize')
-        const container = document.getElementById('three03-container')
-        console.log(container.clientWidth,container.clientHeight)
-        setWIDTH(WIDTH = container.clientWidth)
-        setHEIGHT(HEIGHT = container.clientHeight)
-        camera.aspect = WIDTH / HEIGHT
-        camera.updateProjectionMatrix()
-        renderer.setSize(WIDTH, HEIGHT)
-        render()
+        setTimeout(() => {
+            const container = document.getElementById('three03-container')
+            setWIDTH(WIDTH = container.clientWidth)
+            setHEIGHT(HEIGHT = container.clientHeight)
+            camera.aspect = WIDTH / HEIGHT
+            camera.updateProjectionMatrix()
+            renderer.setSize(WIDTH, HEIGHT)
+            render()
+        }, 500)
     }
     const animate = () => {
         requestAnimationFrame(animate)
@@ -206,10 +206,10 @@ export default () => {
     return <div className="three03-container-wrapper">
         <div id="three03-container"></div>
         <div id="three03-container-ctrl">
-            {/* className={{ 'iconfont': true, 'xl-icon-pause': paused, 'xl-icon-start': !paused }} */}
+            {/*  */}
             <i style={{ cursor: 'pointer', fontSize: '24px' }}
                 title="点击播放"
-                className='iconfont xl-icon-pause'
+                className={`iconfont ${paused ? 'xl-icon-pause' : 'xl-icon-start'}`}
                 onClick={() => toggle()}
             ></i>
         </div>

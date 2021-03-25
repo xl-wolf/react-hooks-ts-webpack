@@ -18,42 +18,42 @@ export const menuList: SiderMenu[] = [
     key: '2',
     title: '高德地图',
     path: '/amap',
-    icon: <i className="iconfont icon-gaodeditu" />
+    icon: <i className="iconfont xl-icon-gaodeditu" />
   },
   {
     key: '3',
     title: '百度地图',
     path: '/bmap',
-    icon: <i className="iconfont icon-baidudituqibiaodianjishijian" />
+    icon: <i className="iconfont xl-icon-751bianjiqi_baiduditu" />
   },
   {
     key: '4',
     title: '3D',
-    icon: <i className="iconfont icon-D" style={{ marginRight: '10px' }}/>,
+    icon: <i className="iconfont xl-icon-D" style={{ marginRight: '10px' }}/>,
     children: [
       {
         key: '4-1',
         title: 'three01',
         path: '/3D/three01',
-        icon: <i className="iconfont icon-D1" />,
+        icon: <i className="iconfont xl-icon-3d" />,
       },
       {
         key: '4-2',
         title: 'three02',
         path: '/3D/three02',
-        icon: <i className="iconfont icon-3d" />,
+        icon: <i className="iconfont xl-icon-d" />,
       },
       {
         key: '4-3',
         title: 'three03',
         path: '/3D/three03',
-        icon: <i className="iconfont icon-3d" />,
+        icon: <i className="iconfont xl-icon-rotate3d" />,
       },
       {
         key: '4-4',
         title: 'VR',
         path: '/3D/vr',
-        icon: <i className="iconfont icon-vr" />,
+        icon: <i className="iconfont xl-icon-VR" />,
       },
     ]
   },

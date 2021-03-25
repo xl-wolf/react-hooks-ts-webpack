@@ -19,7 +19,7 @@ export default () => {
     let [HEIGHT, setHEIGHT] = useState(null)
     useEffect(() => {
         init()
-        setTimeout(onWindowResize,0)
+        setTimeout(onWindowResize, 0)
         return () => { window.removeEventListener("resize", onWindowResize) }
     }, [])
     const init = async () => {
@@ -175,15 +175,17 @@ export default () => {
         renderer.render(scene, camera)
     }
     const onWindowResize = () => {
-        const VRcontainer = document.getElementById('three02-container')
-        // 加if判断防止事件监听在离开本页面后因获取不到VRcontainer而报错
-        if (VRcontainer) {
-            setWIDTH(WIDTH = VRcontainer.clientWidth)
-            setHEIGHT(HEIGHT = VRcontainer.clientHeight)
-            camera.aspect = WIDTH / HEIGHT
-            camera.updateProjectionMatrix()
-            renderer.setSize(WIDTH, HEIGHT)
-        }
+        setTimeout(() => {
+            const VRcontainer = document.getElementById('three02-container')
+            // 加if判断防止事件监听在离开本页面后因获取不到VRcontainer而报错
+            if (VRcontainer) {
+                setWIDTH(WIDTH = VRcontainer.clientWidth)
+                setHEIGHT(HEIGHT = VRcontainer.clientHeight)
+                camera.aspect = WIDTH / HEIGHT
+                camera.updateProjectionMatrix()
+                renderer.setSize(WIDTH, HEIGHT)
+            }
+        },500)
     }
     return <div id="three02-container" style={{ height: '100%' }}></div>
 }

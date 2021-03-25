@@ -1,51 +1,128 @@
 {
-  "id": "1829244",
-  "name": "xl-react-antd-template",
+  "id": "1842101",
+  "name": "vue-element-template",
   "font_family": "iconfont",
-  "css_prefix_text": "icon-",
-  "description": "",
+  "css_prefix_text": "xl-icon-",
+  "description": "个人vue+element全栈项目（前端）",
   "glyphs": [
     {
-      "icon_id": "1610184",
-      "name": "我的模板",
-      "font_class": "wodemoban",
-      "unicode": "e605",
-      "unicode_decimal": 58885
+      "icon_id": "146573",
+      "name": "音乐音频",
+      "font_class": "yinleyinpin",
+      "unicode": "e6e5",
+      "unicode_decimal": 59109
     },
     {
-      "icon_id": "1683068",
-      "name": "gesture_swipe-right-h",
-      "font_class": "gesture_swipe-right-h",
-      "unicode": "e66f",
-      "unicode_decimal": 58991
+      "icon_id": "4954929",
+      "name": "视频",
+      "font_class": "shipin",
+      "unicode": "e656",
+      "unicode_decimal": 58966
     },
     {
-      "icon_id": "608274",
-      "name": "地图",
-      "font_class": "ditumap29",
-      "unicode": "e67a",
-      "unicode_decimal": 59002
+      "icon_id": "7596031",
+      "name": "pause",
+      "font_class": "pause",
+      "unicode": "e621",
+      "unicode_decimal": 58913
     },
     {
-      "icon_id": "4933446",
-      "name": "折线图",
-      "font_class": "zhexiantu",
-      "unicode": "e76c",
-      "unicode_decimal": 59244
+      "icon_id": "212783",
+      "name": "start",
+      "font_class": "start",
+      "unicode": "ea40",
+      "unicode_decimal": 59968
     },
     {
-      "icon_id": "5203255",
-      "name": "混合",
-      "font_class": "hunhe",
-      "unicode": "e625",
-      "unicode_decimal": 58917
+      "icon_id": "14341966",
+      "name": "full-screen",
+      "font_class": "full-screen",
+      "unicode": "e7bb",
+      "unicode_decimal": 59323
     },
     {
-      "icon_id": "11757073",
-      "name": "钢琴",
-      "font_class": "gangqin",
-      "unicode": "e739",
-      "unicode_decimal": 59193
+      "icon_id": "14341974",
+      "name": "full-screen-cancel",
+      "font_class": "full-screen-cancel",
+      "unicode": "e7bc",
+      "unicode_decimal": 59324
+    },
+    {
+      "icon_id": "128044",
+      "name": "3d",
+      "font_class": "3d1",
+      "unicode": "e60e",
+      "unicode_decimal": 58894
+    },
+    {
+      "icon_id": "703563",
+      "name": "rotate-3d",
+      "font_class": "rotate3d",
+      "unicode": "ea53",
+      "unicode_decimal": 59987
+    },
+    {
+      "icon_id": "4236824",
+      "name": "别墅",
+      "font_class": "bieshu",
+      "unicode": "e622",
+      "unicode_decimal": 58914
+    },
+    {
+      "icon_id": "10562374",
+      "name": "Tree, withered",
+      "font_class": "Treewithered",
+      "unicode": "e6a5",
+      "unicode_decimal": 59045
+    },
+    {
+      "icon_id": "562673",
+      "name": "Bar chart",
+      "font_class": "barchart",
+      "unicode": "e61a",
+      "unicode_decimal": 58906
+    },
+    {
+      "icon_id": "4448563",
+      "name": "pie",
+      "font_class": "pie",
+      "unicode": "e67e",
+      "unicode_decimal": 59006
+    },
+    {
+      "icon_id": "4766298",
+      "name": "line chart",
+      "font_class": "linechart",
+      "unicode": "e7af",
+      "unicode_decimal": 59311
+    },
+    {
+      "icon_id": "4813178",
+      "name": "混合云数据备份",
+      "font_class": "hunheyunshujubeifen",
+      "unicode": "e657",
+      "unicode_decimal": 58967
+    },
+    {
+      "icon_id": "8017562",
+      "name": "echarts_mappie",
+      "font_class": "echarts_mappie",
+      "unicode": "e6bd",
+      "unicode_decimal": 59069
+    },
+    {
+      "icon_id": "8017656",
+      "name": "echarts_heatmap",
+      "font_class": "echarts_heatmap",
+      "unicode": "e6d6",
+      "unicode_decimal": 59094
+    },
+    {
+      "icon_id": "880323",
+      "name": "home",
+      "font_class": "home",
+      "unicode": "e6b0",
+      "unicode_decimal": 59056
     },
     {
       "icon_id": "705650",
@@ -55,39 +132,74 @@
       "unicode_decimal": 58881
     },
     {
-      "icon_id": "2280756",
-      "name": "vr",
-      "font_class": "vr",
-      "unicode": "e61d",
-      "unicode_decimal": 58909
+      "icon_id": "762264",
+      "name": "Swipe-Right",
+      "font_class": "swiperight",
+      "unicode": "e63a",
+      "unicode_decimal": 58938
     },
     {
-      "icon_id": "13964922",
+      "icon_id": "1224929",
+      "name": "open-eyes",
+      "font_class": "open-eyes",
+      "unicode": "e6af",
+      "unicode_decimal": 59055
+    },
+    {
+      "icon_id": "1308539",
+      "name": "751编辑器_百度地图",
+      "font_class": "751bianjiqi_baiduditu",
+      "unicode": "e652",
+      "unicode_decimal": 58962
+    },
+    {
+      "icon_id": "1368661",
+      "name": "3d",
+      "font_class": "d",
+      "unicode": "e625",
+      "unicode_decimal": 58917
+    },
+    {
+      "icon_id": "1621435",
+      "name": "VR",
+      "font_class": "VR",
+      "unicode": "e620",
+      "unicode_decimal": 58912
+    },
+    {
+      "icon_id": "6858480",
       "name": "3D",
       "font_class": "D",
-      "unicode": "e60d",
-      "unicode_decimal": 58893
+      "unicode": "e6cd",
+      "unicode_decimal": 59085
     },
     {
-      "icon_id": "3164598",
-      "name": "百度地图旗标点击事件",
-      "font_class": "baidudituqibiaodianjishijian",
-      "unicode": "e626",
-      "unicode_decimal": 58918
-    },
-    {
-      "icon_id": "10246080",
-      "name": "3D",
-      "font_class": "D1",
-      "unicode": "e69c",
-      "unicode_decimal": 59036
-    },
-    {
-      "icon_id": "13933353",
+      "icon_id": "8519523",
       "name": "高德地图",
       "font_class": "gaodeditu",
-      "unicode": "e679",
-      "unicode_decimal": 59001
+      "unicode": "e6fe",
+      "unicode_decimal": 59134
+    },
+    {
+      "icon_id": "851473",
+      "name": "password",
+      "font_class": "password",
+      "unicode": "e6a9",
+      "unicode_decimal": 59049
+    },
+    {
+      "icon_id": "13260059",
+      "name": "user",
+      "font_class": "user",
+      "unicode": "e673",
+      "unicode_decimal": 58995
+    },
+    {
+      "icon_id": "1472406",
+      "name": "eye-close",
+      "font_class": "eye-close",
+      "unicode": "e6b8",
+      "unicode_decimal": 59064
     }
   ]
 }

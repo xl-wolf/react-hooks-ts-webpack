@@ -27,7 +27,7 @@ export default () => {
     let [animationLooper, setanimationLooper] = useState(null)
     useEffect(() => {
         init()
-        setTimeout(onWindowResize,0)
+        setTimeout(onWindowResize, 0)
         return () => { window.removeEventListener("resize", onWindowResize); setanimationLooper(animationLooper = null) }
     }, [])
     const init = async () => {
@@ -188,16 +188,18 @@ export default () => {
         setprevTime(prevTime = time)
     }
     const onWindowResize = async () => {
-        const VRcontainer = document.getElementById("vr-container");
-        // 加if判断防止事件监听在离开本页面后因获取不到VRcontainer而报错
-        if (VRcontainer) {
-            setWIDTH(WIDTH = VRcontainer.clientWidth)
-            setHEIGHT(HEIGHT = VRcontainer.clientHeight)
-            camera.aspect = WIDTH / HEIGHT;
-            setcamera(camera)
-            camera.updateProjectionMatrix();
-            renderer.setSize(WIDTH, HEIGHT);
-        }
+        setTimeout(() => {
+            const VRcontainer = document.getElementById("vr-container");
+            // 加if判断防止事件监听在离开本页面后因获取不到VRcontainer而报错
+            if (VRcontainer) {
+                setWIDTH(WIDTH = VRcontainer.clientWidth)
+                setHEIGHT(HEIGHT = VRcontainer.clientHeight)
+                camera.aspect = WIDTH / HEIGHT;
+                setcamera(camera)
+                camera.updateProjectionMatrix();
+                renderer.setSize(WIDTH, HEIGHT);
+            }
+        },500)
     }
     return <div id="vr-container" style={{ height: '100%' }} />
 }
