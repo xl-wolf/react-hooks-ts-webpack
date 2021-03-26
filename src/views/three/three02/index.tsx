@@ -1,9 +1,7 @@
-import * as React from "react";
-import { useEffect, useState } from "react";
+import React,{ useEffect, useState } from 'react'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { Reflector } from 'three/examples/jsm/objects/Reflector.js'
-
 export default () => {
     let [renderer, setrenderer] = useState(null)
     let [scene, setscene] = useState(null)
@@ -22,7 +20,7 @@ export default () => {
         setTimeout(onWindowResize, 0)
         return () => { window.removeEventListener("resize", onWindowResize) }
     }, [])
-    const init = async () => {
+    const init = () => {
         const container = document.getElementById('three02-container')
 
         setWIDTH(WIDTH = container.clientWidth)
@@ -145,7 +143,7 @@ export default () => {
         animate()
         window.addEventListener("resize", onWindowResize)
     }
-    const animate = async () => {
+    const animate = () => {
         requestAnimationFrame(animate)
         const timer = Date.now() * 0.01
         sphereGroup.rotation.y -= 0.002
@@ -155,7 +153,6 @@ export default () => {
             Math.abs(Math.cos(timer * 0.2)) * 20 + 5,
             Math.sin(timer * 0.1) * 36
         )
-
 
         setsmallSphere1(smallSphere1)
         smallSphere1.rotation.y -= Math.PI / 2 - timer * 0.1
@@ -185,7 +182,7 @@ export default () => {
                 camera.updateProjectionMatrix()
                 renderer.setSize(WIDTH, HEIGHT)
             }
-        },500)
+        }, 500)
     }
-    return <div id="three02-container" style={{ height: '100%' }}></div>
+    return <div id="three02-container" style={{ height: '100%' }} />
 }

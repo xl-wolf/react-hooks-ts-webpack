@@ -1,5 +1,7 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable react/no-this-in-sfc */
 import * as React from "react";
-import { useEffect, useState } from "react";
+const { useEffect, useState }  = React;
 import * as THREE from "three";
 import {
     RollerCoasterGeometry,
@@ -164,11 +166,15 @@ export default () => {
     const renderVR = async () => {
         const time = performance.now();
         const delta = time - prevTime;
-        for (let i = 0; i < funfairs.length; i++) {
-            const funfair = funfairs[i];
+        for(let funfair of funfairs){
             funfair.rotation.y = time * 0.0004;
             setfunfairs(funfairs)
         }
+        // for (let i = 0; i < funfairs.length; i++) {
+        //     const funfair = funfairs[i];
+        //     funfair.rotation.y = time * 0.0004;
+        //     setfunfairs(funfairs)
+        // }
 
         progress += velocity;
         progress = progress % 1;

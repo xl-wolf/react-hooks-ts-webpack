@@ -13,8 +13,11 @@ declare module  'three/examples/jsm/objects/Reflector.js'
 declare module 'three/examples/jsm/libs/tween.module.min.js'
 declare module 'three/examples/jsm/controls/TrackballControls.js'
 declare module 'three/examples/jsm/renderers/CSS3DRenderer.js'
+declare module '@ant-design/icons'
+declare module 'src/view/amap/images/red.png'
+declare module 'antd'
 declare const TrackballControls: any
-declare const TWEEN: any
+// declare const TWEEN: any
 declare const BMap: any
 declare const BMapLib: any
 declare const BMAP_ANIMATION_DROP: any

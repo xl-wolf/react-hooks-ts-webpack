@@ -1,5 +1,5 @@
-/*global BMap*/
-const EXAMPLE_URL = 'http://api.map.baidu.com/library/MarkerClusterer/1.2/examples/' //百度地图对外开放固定url
+/* global BMap */
+const EXAMPLE_URL = 'http://api.map.baidu.com/library/MarkerClusterer/1.2/examples/' // 百度地图对外开放固定url
 module.exports = [
   {
     url: EXAMPLE_URL + 'images/heart30.png',

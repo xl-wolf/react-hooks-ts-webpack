@@ -7,11 +7,11 @@ const libs = [
   'http://api.map.baidu.com/library/GeoUtils/1.2/src/GeoUtils_min.js'
 ]
 const body = document.body
-const loadLib = (src: string, resolve: (data: any) => void, reject: (str: string) => void) => {
+const loadLib = (src: string, resolve: (data: any) => void, reject: (error: Error) => void) => {
   const lib = document.createElement('script')
   lib.setAttribute('type', 'text/javascript')
   lib.setAttribute('src', src)
-  lib.onerror = () => { reject('地图插件加载失败') }
+  lib.onerror = () => { reject(new Error('地图插件加载失败')) }
   lib.onload = () => {
     count += 1;
     if (count === libs.length) {
@@ -23,7 +23,7 @@ const loadLib = (src: string, resolve: (data: any) => void, reject: (str: string
 }
 
 export const asyncBMapLoader = () => {
-  return new Promise((resolve: (data: any) => void, reject: (str: string) => void) => {
+  return new Promise((resolve: (data: any) => void, reject: (error: Error) => void) => {
     if (window.BMap && window.BMapLib) {
       // 已经加载百度地图与所需插件则直接返回
       resolve({ BMap: window.BMap, BMapLib: window.BMapLib, msg: '本地地图' })
@@ -39,7 +39,7 @@ export const asyncBMapLoader = () => {
           loadLib(lib, resolve, reject)
         })
       }
-      bmap.onerror = () => { reject('地图初始化失败') }
+      bmap.onerror = () => { reject(new Error('地图初始化失败')) }
     }
   })
 }

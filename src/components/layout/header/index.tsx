@@ -1,14 +1,14 @@
-import * as React from 'react'
+import React from 'react'
 import { Popover, Layout } from 'antd';
 import { MenuUnfoldOutlined, MenuFoldOutlined, UserOutlined } from '@ant-design/icons';
 const { Header } = Layout
 import './index.less'
 interface HeaderProps {
-    getLogout: () => void //退出登录
-    changePassWord: () => void //预留修改密码
-    toggleCollapsed: () => void //侧边栏收展方法
-    collapsed: boolean //侧边栏状态
-    currentPosition: string //当前所在的位置 需要用redux和sessionStorage共同完成
+    getLogout: () => void // 退出登录
+    changePassWord: () => void // 预留修改密码
+    toggleCollapsed: () => void // 侧边栏收展方法
+    collapsed: boolean // 侧边栏状态
+    currentPosition: string // 当前所在的位置 需要用redux和sessionStorage共同完成
 }
 
 export default (hProps: HeaderProps) => {

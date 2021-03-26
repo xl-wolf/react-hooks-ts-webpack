@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { lazy, Suspense } from 'react';
+import React,{ lazy, Suspense } from 'react';
 import { HomeOutlined } from '@ant-design/icons';
 import { Route, Switch, RouteProps, Redirect } from 'react-router-dom';
 import Loading from '@/components/loading'
@@ -106,7 +105,7 @@ export default (authorized: boolean) => {
     <Switch>
       {
         authorized ?
-          routers.map(({ path, exact, component }, index) => (<Route key={path + '' + index} exact={exact} path={path} component={component} />)) :
+          routers.map(({ path, exact, component }, index) => (<Route key={String(path) + index} exact={exact} path={path} component={component} />)) :
           <Redirect to="/" />
       }
     </Switch>

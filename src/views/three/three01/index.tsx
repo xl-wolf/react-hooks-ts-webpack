@@ -1,5 +1,4 @@
-import * as React from "react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as Three from 'three'
 export default () => {
     let [camera, setcamera] = useState(null)

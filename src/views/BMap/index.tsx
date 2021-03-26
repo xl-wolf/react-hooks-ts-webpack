@@ -1,4 +1,6 @@
-import * as React from 'react';
+
+/* global BMap */
+import React from 'react';
 import { message, Modal } from 'antd'
 import { asyncBMapLoader } from '@/utils/index'
 import {
@@ -72,21 +74,20 @@ export default () => {
     const mk = addBMapMarker(currentPositionPointsObj, true, iconConfig)
     generateNearByNMarkers(mk)
     drawCircle()
-    mk.enableDragging() //点标记可拖拽
+    mk.enableDragging() // 点标记可拖拽
     // mk.disableDragging() //点标记不可拖拽
     mk.addEventListener('click', function () {
       const windowConfig = {}
-      bdMapAddInfoWindow(windowConfig, this, true)
+      bdMapAddInfoWindow(windowConfig, mk, true)
     })
 
     mk.addEventListener('dragend', function (e: any) {
-      // console.log(e)
       setcurrentPositionPointsObj(currentPositionPointsObj = e.point)
       // console.log(currentPositionPointsObj)
       mapRef.panTo(currentPositionPointsObj)
       const allMarkers = mapRef.getOverlays()
       // 移除自身以外的其他点标记
-      allMarkers.forEach((marker: any) => marker !== this && removeBMapMarker(marker))
+      allMarkers.forEach((marker: any) => marker !== mk && removeBMapMarker(marker))
       // 随机生成当前位置旁边的N个点标记
       generateNearByNMarkers(e, 20)
       drawCircle(7000)
@@ -105,11 +106,12 @@ export default () => {
       marker = new BMap.Marker(point)
     }
     mapRef.addOverlay(marker)
-    animation && marker.setAnimation(BMAP_ANIMATION_DROP) //跳动的动画 移动端无效
+    /* global BMAP_ANIMATION_DROP */
+    animation && marker.setAnimation(BMAP_ANIMATION_DROP) // 跳动的动画 移动端无效
     return marker
   }
   // 随机生成当前位置旁边的N个点标记-->后期的ajax请求
-  const generateNearByNMarkers = (e: any, count: number = 20) => {
+  const generateNearByNMarkers = (e: any, count = 20) => {
     for (let i = 0; i < count; i++) {
       const point = new BMap.Point(
         e.point['lng'] + (Math.random() - 0.5) * 0.08,
@@ -122,7 +124,7 @@ export default () => {
       marker.dataId = i
       marker.addEventListener('click', function () {
         const windowConfig = {}
-        bdMapAddInfoWindow(windowConfig, this, false)
+        bdMapAddInfoWindow(windowConfig, marker, false)
       })
     }
   }
@@ -140,21 +142,21 @@ export default () => {
     }
 
     const infoWindow = new BMap.InfoWindow(sContent, opts) // 创建信息窗口对象
-    //判断窗口的打开状态
+    // 判断窗口的打开状态
     if (!infoWindow.isOpen()) {
-      //如果没有打开，则监听打开事件，获取按钮，添加事件
+      // 如果没有打开，则监听打开事件，获取按钮，添加事件
       infoWindow.addEventListener('open', function () {
         document.getElementById(dataId).onclick = function (e) {
           console.log('infoWindow noopened：', dataId)
         }
       })
     } else {
-      //如果已经打开，直接获取按钮，添加事件
+      // 如果已经打开，直接获取按钮，添加事件
       document.getElementById(dataId).onclick = function (e) {
         console.log('infoWindow opened：', dataId)
       }
     }
-    mapRef.openInfoWindow(infoWindow, point) //开启信息窗口
+    mapRef.openInfoWindow(infoWindow, point) // 开启信息窗口
   }
   // 生成点聚合
   const addBMapMarkerClusterer = () => {
@@ -178,8 +180,9 @@ export default () => {
     }
     // 生成点聚合并自定义点聚合样式 可采用两种方式导入自定义聚合点样式文件 common.js规范和ES6 module规范
     import('./clustererStylesES6').then(clustererStylesES6 => {
-      /*global BMapLib*/
       const { styles } = clustererStylesES6
+      /* global BMapLib */
+      // eslint-disable-next-line no-new
       new BMapLib.MarkerClusterer(mapRef, { markers, styles })
     })
     // const styles = require('./clustererStylesCommonJS').default
@@ -193,29 +196,31 @@ export default () => {
       const geolocation = new BMap.Geolocation()
       geolocation.getCurrentPosition(
         function (r: any) {
-          if (this.getStatus() === BMAP_STATUS_SUCCESS) {
+          /* global BMAP_STATUS_SUCCESS */
+          if (geolocation.getStatus() === BMAP_STATUS_SUCCESS) {
             resolve({ r: r, lng: r.point.lng, lat: r.point.lat })
           } else {
+            // eslint-disable-next-line prefer-promise-reject-errors
             reject({ msg: '获取定位失败', map: mapRef })
           }
         },
         { enableHighAccuracy: true }
       )
-      //关于状态码
-      //BMAP_STATUS_SUCCESS	检索成功。对应数值“0”。
-      //BMAP_STATUS_CITY_LIST	城市列表。对应数值“1”。
-      //BMAP_STATUS_UNKNOWN_LOCATION	位置结果未知。对应数值“2”。
-      //BMAP_STATUS_UNKNOWN_ROUTE	导航结果未知。对应数值“3”。
-      //BMAP_STATUS_INVALID_KEY	非法密钥。对应数值“4”。
-      //BMAP_STATUS_INVALID_REQUEST	非法请求。对应数值“5”。
-      //BMAP_STATUS_PERMISSION_DENIED	没有权限。对应数值“6”。(自 1.1 新增)
-      //BMAP_STATUS_SERVICE_UNAVAILABLE	服务不可用。对应数值“7”。(自 1.1 新增)
-      //BMAP_STATUS_TIMEOUT	超时。对应数值“8”。(自 1.1 新增)
+      // 关于状态码
+      // BMAP_STATUS_SUCCESS	检索成功。对应数值“0”。
+      // BMAP_STATUS_CITY_LIST	城市列表。对应数值“1”。
+      // BMAP_STATUS_UNKNOWN_LOCATION	位置结果未知。对应数值“2”。
+      // BMAP_STATUS_UNKNOWN_ROUTE	导航结果未知。对应数值“3”。
+      // BMAP_STATUS_INVALID_KEY	非法密钥。对应数值“4”。
+      // BMAP_STATUS_INVALID_REQUEST	非法请求。对应数值“5”。
+      // BMAP_STATUS_PERMISSION_DENIED	没有权限。对应数值“6”。(自 1.1 新增)
+      // BMAP_STATUS_SERVICE_UNAVAILABLE	服务不可用。对应数值“7”。(自 1.1 新增)
+      // BMAP_STATUS_TIMEOUT	超时。对应数值“8”。(自 1.1 新增)
     })
   }
   // 添加工具条和比例尺
   const controllerTools = () => {
-    /*global BMAP_ANCHOR_BOTTOM_RIGHT BMAP_NAVIGATION_CONTROL_LARGE*/
+    /* global BMAP_ANCHOR_BOTTOM_RIGHT BMAP_NAVIGATION_CONTROL_LARGE */
     const top_left_navigation = new BMap.NavigationControl({
       // 靠左上角位置
       anchor: BMAP_ANCHOR_BOTTOM_RIGHT,
@@ -224,7 +229,7 @@ export default () => {
       // 启用显示定位
       // enableGeolocation: true
     })
-    //添加控件和比例尺
+    // 添加控件和比例尺
     mapRef.addControl(top_left_navigation)
   }
   // 返回地图中心点（当前定位点）

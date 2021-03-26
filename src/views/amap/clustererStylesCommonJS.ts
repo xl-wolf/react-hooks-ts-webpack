@@ -1,4 +1,4 @@
-/*global AMap*/
+/* global AMap */
 module.exports = [{
   url: "https://a.amap.com/jsapi_demos/static/images/blue.png",
   size: new AMap.Size(32, 32),

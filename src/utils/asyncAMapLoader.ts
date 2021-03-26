@@ -1,6 +1,6 @@
 // 加载高德地图
 export const asyncAMapLoader = () => {
-    return new Promise((resolve: (data: any) => void, reject: (data: any) => void) => {
+    return new Promise((resolve: (data: any) => void, reject: (data: Error) => void) => {
         if (window.AMap) {
             resolve({ AMap: window.AMap, msg: '本地地图' })
         } else {
@@ -13,7 +13,7 @@ export const asyncAMapLoader = () => {
             script.type = 'text/javascript'
             script.async = true
             script.src = url
-            script.onerror = () => { reject('加载地图失败') }
+            script.onerror = () => { reject(new Error('加载地图失败')) }
             document.body.appendChild(script)
         }
         window.initAMap = () => { resolve({ AMap: window.AMap, msg: '首次加载地图' }) }

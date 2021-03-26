@@ -1,6 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const myPlugin = require('../myLoaderAndPlugin/plugin')
+const MyPlugin = require('../myLoaderAndPlugin/plugin')
 module.exports = {
     // webpack 个生成的 Chunk 个名称， Chunk 的名称和 entry的配置有关。
     // ·如果 entry 是一 string array ，就只会生成 Chunk ，这时 Chunk 的名 main
@@ -8,11 +8,18 @@ module.exports = {
     entry: path.resolve(__dirname, '../src/index'),
     output: {
         filename: '[name].bundle.js',
-        //把一个路径或路径片段的序列解析为一个绝对路径
+        // 把一个路径或路径片段的序列解析为一个绝对路径
         path: path.resolve(__dirname, '../dist')
     },
     module: {
         rules: [
+            {
+                test: /\.(jsx|js|ts|tsx)$/,
+                include: [path.resolve(__dirname, '../src')],
+                exclude: [/node_modules/],
+                use: ['eslint-loader'],
+                enforce: 'pre'
+            },
             {
                 test: /\.js$/,
                 exclude: path.resolve(__dirname, "../node_modules"),
@@ -49,7 +56,7 @@ module.exports = {
         ]
     },
     resolve: {
-        alias: { //配合tsconfig.json中的compilerOptions.paths才能生效
+        alias: { // 配合tsconfig.json中的compilerOptions.paths才能生效
             "@": path.resolve(__dirname, '../src/')
         },
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
@@ -61,6 +68,6 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, '../public/index.html'),
         }),
-        new myPlugin()
+        new MyPlugin()
     ]
 }

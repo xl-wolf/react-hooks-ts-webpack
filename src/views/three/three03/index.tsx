@@ -1,5 +1,5 @@
-import * as React from "react";
-import { useEffect, useRef, useState } from "react";
+/* eslint-disable @typescript-eslint/no-invalid-this */
+import  React,{ useEffect, useRef, useState } from "react";
 import * as Three from 'three'
 import { TWEEN } from 'three/examples/jsm/libs/tween.module.min.js'
 import { TrackballControls } from 'three/examples/jsm/controls/TrackballControls.js'
@@ -204,14 +204,14 @@ export default () => {
         dom.className = 'active'
     }
     return <div className="three03-container-wrapper">
-        <div id="three03-container"></div>
+        <div id="three03-container" />
         <div id="three03-container-ctrl">
             {/*  */}
             <i style={{ cursor: 'pointer', fontSize: '24px' }}
                 title="点击播放"
                 className={`iconfont ${paused ? 'xl-icon-pause' : 'xl-icon-start'}`}
                 onClick={() => toggle()}
-            ></i>
+             />
         </div>
         <div id="three03-container-menu">
             <button id="table">TABLE</button>

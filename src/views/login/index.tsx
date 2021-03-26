@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import { Button, Form, Input } from 'antd'
 import { getSession, history, setSession } from '@/utils'
 import './index.less'

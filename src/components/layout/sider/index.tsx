@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import { Layout, Menu } from 'antd'
 import { SiderMenu } from '@/types/SiderMenu'
 import { getSession, history, setSession } from '@/utils'
@@ -13,11 +13,16 @@ interface SiderProps {
 export default (SiderProps: SiderProps) => {
     const { collapsed } = SiderProps
     const recursiveFindCurMenuItem = (list: SiderMenu[], curItem: any): SiderMenu => {
-        for (let i = 0; i < list.length; i++) {
+        for (let item of list) {
             const currentMenuItem = list.find((it) => it.key === curItem.key)
             if (currentMenuItem) return currentMenuItem
-            if (list[i].children?.length) return recursiveFindCurMenuItem(list[i].children, curItem)
+            if (item.children?.length) return recursiveFindCurMenuItem(item.children, curItem)
         }
+        // for (let i = 0; i < list.length; i++) {
+        //     const currentMenuItem = list.find((it) => it.key === curItem.key)
+        //     if (currentMenuItem) return currentMenuItem
+        //     if (list[i].children?.length) return recursiveFindCurMenuItem(list[i].children, curItem)
+        // }
     }
     // menu的点击事件，跳转到相应的地址
     const menuItemClick = (item: any) => {
@@ -52,8 +57,8 @@ export default (SiderProps: SiderProps) => {
                 {!collapsed && <div>xl-wolf</div>}
             </div>
             <Menu
-                theme={'dark'}
-                onClick={(item) => menuItemClick(item)}
+                theme="dark"
+                onClick={(item: any) => menuItemClick(item)}
                 mode="inline"
                 defaultSelectedKeys={defaultSelectedKeys}
                 defaultOpenKeys={defaultOpenKeys}>

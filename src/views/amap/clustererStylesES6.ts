@@ -1,4 +1,5 @@
-/*global AMap*/
+
+/* global AMap */
 export default [
   {
     url: require('./customerClustererImages/clusterer-36--green.png').default,
