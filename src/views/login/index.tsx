@@ -4,7 +4,7 @@ import { getSession, history, setSession } from "@/utils";
 import "./index.less";
 import { menuList } from "@/routers";
 const { Item: FormItem } = Form;
-const { useEffect, useState } = React;
+const { useEffect } = React;
 export default () => {
   useEffect(() => {
     loadModulesRandom();
@@ -39,8 +39,9 @@ export default () => {
   };
   const login = () => {
     setSession("appAuth", "true");
-    if (JSON.parse(getSession("currentMenuItem"))) {
-      const { path } = JSON.parse(getSession("currentMenuItem"));
+    const sessionMenuItem = JSON.parse(getSession("currentMenuItem"));
+    if (sessionMenuItem) {
+      const { path } = sessionMenuItem;
       return history.push("/main" + path);
     }
     setSession("currentLocation", menuList[0].title);
