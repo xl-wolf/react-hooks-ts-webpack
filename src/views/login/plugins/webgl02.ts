@@ -119,9 +119,10 @@ export const drawCanvas = (domId: string) => {
   }
 
   //
-
+  let animationFrameId: number = null;
   function animate() {
-    requestAnimationFrame(animate);
+    animationFrameId && cancelAnimationFrame(animationFrameId);
+    animationFrameId = requestAnimationFrame(animate);
     render();
   }
 

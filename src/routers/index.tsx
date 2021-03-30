@@ -1,114 +1,143 @@
-import * as React from 'react';
-import { lazy, Suspense } from 'react';
-import { HomeOutlined } from '@ant-design/icons';
-import { Route, Switch, RouteProps, Redirect } from 'react-router-dom';
-import Loading from '@/components/loading'
-import NotFound from '@/components/404/index'
-import { SiderMenu } from '@/types/SiderMenu';
-import "@/assets/iconfont/iconfont.css"
+import * as React from "react";
+import { lazy, Suspense } from "react";
+import { HomeOutlined } from "@ant-design/icons";
+import { Route, Switch, RouteProps, Redirect } from "react-router-dom";
+import Loading from "@/components/loading";
+import NotFound from "@/components/404/index";
+import { SiderMenu } from "@/types/SiderMenu";
+import "@/assets/iconfont/iconfont.css";
 
 export const menuList: SiderMenu[] = [
   {
-    key: '1',
-    title: '首页',
-    path: '/home',
-    icon: <HomeOutlined />
+    key: "1",
+    title: "首页",
+    path: "/home",
+    show: true,
+    icon: <HomeOutlined />,
   },
   {
-    key: '2',
-    title: '高德地图',
-    path: '/amap',
-    icon: <i className="iconfont xl-icon-gaodeditu" />
+    key: "2",
+    title: "高德地图",
+    path: "/amap",
+    show: true,
+    icon: <i className="iconfont xl-icon-gaodeditu" />,
   },
   {
-    key: '3',
-    title: '百度地图',
-    path: '/bmap',
-    icon: <i className="iconfont xl-icon-751bianjiqi_baiduditu" />
+    key: "3",
+    title: "百度地图",
+    path: "/bmap",
+    show: true,
+    icon: <i className="iconfont xl-icon-751bianjiqi_baiduditu" />,
   },
   {
-    key: '4',
-    title: '3D',
-    icon: <i className="iconfont xl-icon-D" style={{ marginRight: '10px' }}/>,
+    key: "4",
+    title: "3D",
+    show: true,
+    icon: <i className="iconfont xl-icon-D" style={{ marginRight: "10px" }} />,
     children: [
       {
-        key: '4-1',
-        title: 'three01',
-        path: '/3D/three01',
+        key: "4-1",
+        title: "three01",
+        path: "/3D/three01",
+        show: true,
         icon: <i className="iconfont xl-icon-3d" />,
       },
       {
-        key: '4-2',
-        title: 'three02',
-        path: '/3D/three02',
+        key: "4-2",
+        title: "three02",
+        path: "/3D/three02",
+        show: true,
         icon: <i className="iconfont xl-icon-d" />,
       },
       {
-        key: '4-3',
-        title: 'three03',
-        path: '/3D/three03',
+        key: "4-3",
+        title: "three03",
+        path: "/3D/three03",
+        show: true,
         icon: <i className="iconfont xl-icon-rotate3d" />,
       },
       {
-        key: '4-4',
-        title: 'VR',
-        path: '/3D/vr',
+        key: "4-4",
+        title: "VR",
+        path: "/3D/vr",
+        show: true,
         icon: <i className="iconfont xl-icon-VR" />,
       },
-    ]
+    ],
   },
-]
+  {
+    key: "5",
+    title: "视频播放器",
+    path: "/video",
+    show: false,
+    icon: <i className="iconfont xl-icon-shipin" />,
+  },
+];
 
 const routers: RouteProps[] = [
   {
-    path: '/main/home',
+    path: "/main/home",
     exact: true,
-    component: lazy(() => import('@/views/home/index'))
+    component: lazy(() => import("@/views/home/index")),
   },
   {
-    path: '/main/amap',
+    path: "/main/amap",
     exact: true,
-    component: lazy(() => import('@/views/amap/index'))
+    component: lazy(() => import("@/views/amap/index")),
   },
   {
-    path: '/main/bmap',
+    path: "/main/bmap",
     exact: true,
-    component: lazy(() => import('@/views/bmap/index'))
+    component: lazy(() => import("@/views/bmap/index")),
   },
   {
-    path: '/main/3D/three01',
+    path: "/main/3D/three01",
     exact: true,
-    component: lazy(() => import('@/views/three/three01/index'))
+    component: lazy(() => import("@/views/three/three01/index")),
   },
   {
-    path: '/main/3D/three02',
+    path: "/main/3D/three02",
     exact: true,
-    component: lazy(() => import('@/views/three/three02/index'))
+    component: lazy(() => import("@/views/three/three02/index")),
   },
   {
-    path: '/main/3D/three03',
+    path: "/main/3D/three03",
     exact: true,
-    component: lazy(() => import('@/views/three/three03/index'))
+    component: lazy(() => import("@/views/three/three03/index")),
   },
   {
-    path: '/main/3D/vr',
+    path: "/main/3D/vr",
     exact: true,
-    component: lazy(() => import('@/views/three/vr/index'))
+    component: lazy(() => import("@/views/three/vr/index")),
   },
   {
-    path: '*',
-    component: NotFound
+    path: "/main/video",
+    exact: true,
+    component: lazy(() => import("@/views/video/index")),
   },
-]
+  {
+    path: "*",
+    component: NotFound,
+  },
+];
 
 export default (authorized: boolean) => {
-  return <Suspense fallback={<Loading />}>
-    <Switch>
-      {
-        authorized ?
-          routers.map(({ path, exact, component }, index) => (<Route key={path + '' + index} exact={exact} path={path} component={component} />)) :
+  return (
+    <Suspense fallback={<Loading />}>
+      <Switch>
+        {authorized ? (
+          routers.map(({ path, exact, component }, index) => (
+            <Route
+              key={path + "" + index}
+              exact={exact}
+              path={path}
+              component={component}
+            />
+          ))
+        ) : (
           <Redirect to="/" />
-      }
-    </Switch>
-  </Suspense>
-}
+        )}
+      </Switch>
+    </Suspense>
+  );
+};

@@ -107,8 +107,10 @@ function drawCircles() {
 }
 
 let frame: number = 0;
+let animationFrameId: number = null;
 function animate() {
-  requestAnimationFrame(animate);
+  animationFrameId && cancelAnimationFrame(animationFrameId);
+  animationFrameId = requestAnimationFrame(animate);
   frame += 1;
   c.clearRect(0, 0, innerWidth, innerHeight);
   for (let i = 0; i < circleArray.length; i++) {
