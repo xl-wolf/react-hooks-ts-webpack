@@ -4,42 +4,99 @@ import { getSession, history, setSession } from "@/utils";
 import "./index.less";
 import { menuList } from "@/routers";
 const { Item: FormItem } = Form;
-const { useEffect } = React;
+const { useEffect, useState } = React;
 export default () => {
+  let [clear, setclear] = useState(null);
   useEffect(() => {
-    loadModulesRandom();
-    return () => {};
+    loadModulesRandom(); 
+    return () => {
+      clear();
+    };
   }, []);
-  const loadModulesRandom = () => {
-    const random = Math.floor(Math.random() * 5);
+  const loadModulesRandom = (idx?: number) => {
+    const random = idx || Math.ceil(Math.random() * 15);
     switch (random) {
-      case 0:
-        import("./plugins/canvas01").then(({ drawCanvas }) => {
-          drawCanvas("form-bg");
-        });
-        break;
       case 1:
-        import("./plugins/canvas02").then(({ drawCanvas }) => {
+        import("./plugins/canvas01").then(({ drawCanvas, clearFunc }) => {
+          setclear((clear = clearFunc));
           drawCanvas("form-bg");
         });
         break;
       case 2:
-        import("./plugins/canvas03").then(({ drawCanvas }) => {
+        import("./plugins/canvas02").then(({ drawCanvas, clearFunc }) => {
+          setclear((clear = clearFunc));
           drawCanvas("form-bg");
         });
         break;
       case 3:
-        import("./plugins/webgl01").then(({ drawCanvas }) => {
+        import("./plugins/canvas03").then(({ drawCanvas, clearFunc }) => {
+          setclear((clear = clearFunc));
           drawCanvas("form-bg");
         });
         break;
       case 4:
-        import("./plugins/webgl02").then(({ drawCanvas }) => {
+        import("./plugins/canvas04").then(({ drawCanvas, clearFunc }) => {
+          setclear((clear = clearFunc));
           drawCanvas("form-bg");
         });
         break;
       case 5:
-        import("./plugins/webgl03").then(({ drawCanvas }) => {
+        import("./plugins/canvas05").then(({ drawCanvas, clearFunc }) => {
+          setclear((clear = clearFunc));
+          drawCanvas("form-bg");
+        });
+        break;
+      case 6:
+        import("./plugins/canvas06").then(({ drawCanvas, clearFunc }) => {
+          setclear((clear = clearFunc));
+          drawCanvas("form-bg");
+        });
+        break;
+      case 7:
+        import("./plugins/canvas07").then(({ drawCanvas, clearFunc }) => {
+          setclear((clear = clearFunc));
+          drawCanvas("form-bg");
+        });
+        break;
+      case 8:
+        import("./plugins/canvas08").then(({ drawCanvas, clearFunc }) => {
+          setclear((clear = clearFunc));
+          drawCanvas("form-bg");
+        });
+        break;
+      case 9:
+        import("./plugins/webgl01").then(({ drawCanvas, clearFunc }) => {
+          setclear((clear = clearFunc));
+          drawCanvas("form-bg");
+        });
+        break;
+      case 10:
+        import("./plugins/webgl02").then(({ drawCanvas, clearFunc }) => {
+          setclear((clear = clearFunc));
+          drawCanvas("form-bg");
+        });
+        break;
+      case 11:
+        import("./plugins/webgl03").then(({ drawCanvas, clearFunc }) => {
+          setclear((clear = clearFunc));
+          drawCanvas("form-bg");
+        });
+        break;
+      case 12:
+        import("./plugins/webgl04").then(({ drawCanvas, clearFunc }) => {
+          setclear((clear = clearFunc));
+          drawCanvas("form-bg");
+        });
+        break;
+      case 13:
+        import("./plugins/webgl05").then(({ drawCanvas, clearFunc }) => {
+          setclear((clear = clearFunc));
+          drawCanvas("form-bg");
+        });
+        break;
+      case 14:
+        import("./plugins/webgl06").then(({ drawCanvas, clearFunc }) => {
+          setclear((clear = clearFunc));
           drawCanvas("form-bg");
         });
         break;

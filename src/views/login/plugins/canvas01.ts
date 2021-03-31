@@ -1,7 +1,7 @@
 // 可调参数
 const BACKGROUND_COLOR = "rgba(0,0,0,1)"; // 背景颜色
 // const BACKGROUND_COLOR = "rgba(0,43,54,1)"; // 背景颜色
-const POINT_NUM = 100; // 星星数目
+const POINT_NUM = 150; // 星星数目
 const POINT_COLOR = "rgba(0,255,255,0.9)"; // 点的颜色
 // const POINT_COLOR = "rgba(255,255,255,0.7)"; // 点的颜色
 const LINE_LENGTH = 10000; // 点之间连线长度(的平方)
@@ -21,8 +21,6 @@ canvas.style.cssText =
 document.body.appendChild(canvas);
 
 const ctx = canvas.getContext("2d");
-
-const startTime = new Date().getTime();
 
 //随机数函数
 
@@ -127,8 +125,8 @@ function drawLine(p1: any, p2: any, deg: number) {
   return;
 }
 
-let animationFrameId: number = null;
 //绘制每一帧
+let animationFrameId:any = null
 function drawFrame() {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
@@ -143,12 +141,16 @@ function drawFrame() {
     arr[i].draw();
     arr[i].move();
   }
-  animationFrameId && window.cancelAnimationFrame(animationFrameId);
-  animationFrameId = window.requestAnimationFrame(drawFrame);
+  
+  clearFunc()
+  animationFrameId = requestAnimationFrame(drawFrame);
 }
 
 export const drawCanvas = (domId: string) => {
   document.getElementById(domId).appendChild(canvas);
   initPoints(POINT_NUM);
   drawFrame();
+};
+export const clearFunc = () => {
+  animationFrameId && cancelAnimationFrame(animationFrameId);
 };

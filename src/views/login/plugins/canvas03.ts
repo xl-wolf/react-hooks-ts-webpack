@@ -2,21 +2,14 @@
 const canvas: any = document.createElement("canvas");
 let aRain: any = []; //存放雨滴
 let w: any, h: any;
-//立即执行方法
-export const drawCanvas = (domId: string) => {
-  const dom = document.getElementById(domId);
-  dom.appendChild(canvas);
-  dom.style.backgroundColor = "#000";
-  createRain(66);
-  setSize();
-};
+
 function setSize() {
   w = window.innerWidth;
   h = window.innerHeight;
   canvas.width = w;
   canvas.height = h;
 }
-
+window.addEventListener("resize", setSize);
 //获取能操作画布的对象，可以说是画笔
 const canCon = canvas.getContext("2d");
 canCon.fillStyle = "aqua"; //设置画笔颜色
@@ -82,13 +75,27 @@ function createRain(num: number) {
   }
 }
 let intervalId: any = null;
-intervalId && clearInterval(intervalId);
-intervalId = setInterval(function () {
-  //加蒙版
-  canCon.fillStyle = "rgba(0,0,0,0.05)";
-  canCon.fillRect(0, 0, w, h);
-  //item指数组的每一个变量
-  for (const item of aRain) {
-    item.move();
-  }
-}, 1000 / 60);
+export const drawCanvas = (domId: string) => {
+  const dom = document.getElementById(domId);
+  dom.appendChild(canvas);
+  dom.style.backgroundColor = "#000";
+  createRain(66);
+  setSize();
+  intervalId = startInterval();
+};
+export const clearFunc = () => {
+  intervalId && clearInterval(intervalId);
+};
+
+clearFunc();
+function startInterval() {
+  return setInterval(function () {
+    //加蒙版
+    canCon.fillStyle = "rgba(0,0,0,0.05)";
+    canCon.fillRect(0, 0, w, h);
+    //item指数组的每一个变量
+    for (const item of aRain) {
+      item.move();
+    }
+  }, 1000 / 60);
+}
