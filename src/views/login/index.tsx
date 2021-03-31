@@ -11,25 +11,35 @@ export default () => {
     return () => {};
   }, []);
   const loadModulesRandom = () => {
-    const random = Math.floor(Math.random() * 4);
+    const random = Math.floor(Math.random() * 5);
     switch (random) {
       case 0:
-        import("./plugins/canvas02").then(({ drawCanvas }) => {
-          drawCanvas("form-bg");
-        });
-        break;
-      case 1:
         import("./plugins/canvas01").then(({ drawCanvas }) => {
           drawCanvas("form-bg");
         });
         break;
+      case 1:
+        import("./plugins/canvas02").then(({ drawCanvas }) => {
+          drawCanvas("form-bg");
+        });
+        break;
       case 2:
-        import("./plugins/webgl01").then(({ drawCanvas }) => {
+        import("./plugins/canvas03").then(({ drawCanvas }) => {
           drawCanvas("form-bg");
         });
         break;
       case 3:
+        import("./plugins/webgl01").then(({ drawCanvas }) => {
+          drawCanvas("form-bg");
+        });
+        break;
+      case 4:
         import("./plugins/webgl02").then(({ drawCanvas }) => {
+          drawCanvas("form-bg");
+        });
+        break;
+      case 5:
+        import("./plugins/webgl03").then(({ drawCanvas }) => {
           drawCanvas("form-bg");
         });
         break;
