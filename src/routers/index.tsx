@@ -67,9 +67,16 @@ export const menuList: SiderMenu[] = [
   },
   {
     key: "5",
-    title: "视频播放器",
+    title: "原生视频播放器",
     path: "/video",
-    show: false,
+    show: true,
+    icon: <i className="iconfont xl-icon-shipin" />,
+  },
+  {
+    key: "6",
+    title: "video.js视频播放器",
+    path: "/video-video.js",
+    show: true,
     icon: <i className="iconfont xl-icon-shipin" />,
   },
 ];
@@ -114,6 +121,11 @@ const routers: RouteProps[] = [
     path: "/main/video",
     exact: true,
     component: lazy(() => import("@/views/video/index")),
+  },
+  {
+    path: "/main/video-video.js",
+    exact: true,
+    component: lazy(() => import("@/views/video-video/index")),
   },
   {
     path: "*",
