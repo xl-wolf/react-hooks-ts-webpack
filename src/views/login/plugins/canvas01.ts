@@ -22,8 +22,6 @@ document.body.appendChild(canvas);
 
 const ctx = canvas.getContext("2d");
 
-const startTime = new Date().getTime();
-
 //随机数函数
 
 function randomFloat(min: number, max: number) {
@@ -127,8 +125,8 @@ function drawLine(p1: any, p2: any, deg: number) {
   return;
 }
 
-let animationFrameId: number = null;
 //绘制每一帧
+let animationFrameId:any = null
 function drawFrame() {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
@@ -143,12 +141,16 @@ function drawFrame() {
     arr[i].draw();
     arr[i].move();
   }
-  animationFrameId && window.cancelAnimationFrame(animationFrameId);
-  animationFrameId = window.requestAnimationFrame(drawFrame);
+  
+  clearFunc()
+  animationFrameId = requestAnimationFrame(drawFrame);
 }
 
 export const drawCanvas = (domId: string) => {
   document.getElementById(domId).appendChild(canvas);
   initPoints(POINT_NUM);
   drawFrame();
+};
+export const clearFunc = () => {
+  animationFrameId && cancelAnimationFrame(animationFrameId);
 };

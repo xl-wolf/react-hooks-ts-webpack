@@ -109,7 +109,8 @@ function drawCircles() {
 let frame: number = 0;
 let animationFrameId: number = null;
 function animate() {
-  animationFrameId && cancelAnimationFrame(animationFrameId);
+  
+  clearFunc()
   animationFrameId = requestAnimationFrame(animate);
   frame += 1;
   c.clearRect(0, 0, innerWidth, innerHeight);
@@ -134,4 +135,7 @@ export const drawCanvas = (domId: string) => {
   dom.style.backgroundColor = "#000";
   initCanvas();
   animate();
+};
+export const clearFunc = () => {
+  animationFrameId && cancelAnimationFrame(animationFrameId);
 };

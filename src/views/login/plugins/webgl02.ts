@@ -1,5 +1,5 @@
 import * as THREE from "three";
-
+let animationFrameId: number = null;
 export const drawCanvas = (domId: string) => {
   const SCREEN_WIDTH = window.innerWidth,
     SCREEN_HEIGHT = window.innerHeight,
@@ -119,9 +119,9 @@ export const drawCanvas = (domId: string) => {
   }
 
   //
-  let animationFrameId: number = null;
   function animate() {
-    animationFrameId && cancelAnimationFrame(animationFrameId);
+    
+    clearFunc();
     animationFrameId = requestAnimationFrame(animate);
     render();
   }
@@ -147,4 +147,7 @@ export const drawCanvas = (domId: string) => {
   }
   init();
   animate();
+};
+export const clearFunc = () => {
+  animationFrameId && cancelAnimationFrame(animationFrameId);
 };

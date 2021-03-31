@@ -7,7 +7,9 @@ export const drawCanvas = (domId: string) => {
   init(domId);
   animate();
 };
-
+export const clearFunc = () => {
+  animationFrameId && cancelAnimationFrame(animationFrameId);
+};
 function init(domId: string) {
   camera = new THREE.PerspectiveCamera(
     45,
@@ -123,7 +125,7 @@ function generateTexture() {
 }
 let animationFrameId: number = null;
 function animate() {
-  animationFrameId && cancelAnimationFrame(animationFrameId);
+  clearFunc();
   animationFrameId = requestAnimationFrame(animate);
   render();
 }
