@@ -7,7 +7,9 @@ export const drawCanvas = (domId: string) => {
   init(domId);
   animate();
 };
-
+export const clearFunc = () => {
+  cancelAnimationFrame(animationFrameId);
+};
 function init(domId: string) {
   container = document.createElement("div");
   document.getElementById(domId).appendChild(container);
@@ -79,8 +81,8 @@ function onWindowResize() {
 
 let animationFrameId: number = null;
 function animate() {
-  animationFrameId && cancelAnimationFrame(animationFrameId);
-  requestAnimationFrame(animate);
+  clearFunc();
+  animationFrameId = requestAnimationFrame(animate);
   render();
 }
 
