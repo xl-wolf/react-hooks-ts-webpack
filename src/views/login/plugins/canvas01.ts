@@ -1,7 +1,7 @@
 // 可调参数
 const BACKGROUND_COLOR = "rgba(0,0,0,1)"; // 背景颜色
 // const BACKGROUND_COLOR = "rgba(0,43,54,1)"; // 背景颜色
-const POINT_NUM = 100; // 星星数目
+const POINT_NUM = 150; // 星星数目
 const POINT_COLOR = "rgba(0,255,255,0.9)"; // 点的颜色
 // const POINT_COLOR = "rgba(255,255,255,0.7)"; // 点的颜色
 const LINE_LENGTH = 10000; // 点之间连线长度(的平方)

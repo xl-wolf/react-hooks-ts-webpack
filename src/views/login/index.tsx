@@ -14,7 +14,7 @@ export default () => {
     };
   }, []);
   const loadModulesRandom = (idx?: number) => {
-    const random = idx || Math.ceil(Math.random() * 14);
+    const random = idx || Math.ceil(Math.random() * 15);
     switch (random) {
       case 1:
         import("./plugins/canvas01").then(({ drawCanvas, clearFunc }) => {
@@ -90,6 +90,12 @@ export default () => {
         break;
       case 13:
         import("./plugins/webgl05").then(({ drawCanvas, clearFunc }) => {
+          setclear((clear = clearFunc));
+          drawCanvas("form-bg");
+        });
+        break;
+      case 14:
+        import("./plugins/webgl06").then(({ drawCanvas, clearFunc }) => {
           setclear((clear = clearFunc));
           drawCanvas("form-bg");
         });
