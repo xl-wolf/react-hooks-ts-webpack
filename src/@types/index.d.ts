@@ -23,6 +23,8 @@ declare module "three/examples/jsm/renderers/CSS3DRenderer.js";
 declare module "three/examples/jsm/utils/BufferGeometryUtils.js";
 declare module 'three/examples/jsm/geometries/LightningStrike.js';
 declare module 'three/examples/jsm/postprocessing/OutlinePass.js';
+declare module "three/examples/jsm/postprocessing/ShaderPass.js";
+declare module "three/examples/jsm/postprocessing/UnrealBloomPass.js";
 declare const TrackballControls: any;
 declare const TWEEN: any;
 declare const BMap: any;

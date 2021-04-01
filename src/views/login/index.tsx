@@ -8,7 +8,7 @@ const { useEffect, useState } = React;
 export default () => {
   let [clear, setclear] = useState(null);
   useEffect(() => {
-    loadModulesRandom(); 
+    loadModulesRandom(15); 
     return () => {
       clear&&clear();
     };
@@ -96,6 +96,12 @@ export default () => {
         break;
       case 14:
         import("./plugins/webgl06").then(({ drawCanvas, clearFunc }) => {
+          setclear((clear = clearFunc));
+          drawCanvas("form-bg");
+        });
+        break;
+      case 15:
+        import("./plugins/webgl07").then(({ drawCanvas, clearFunc }) => {
           setclear((clear = clearFunc));
           drawCanvas("form-bg");
         });
