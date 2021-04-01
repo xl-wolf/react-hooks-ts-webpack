@@ -1,11 +1,11 @@
 import * as React from "react";
-import { lazy, Suspense } from "react";
 import { HomeOutlined } from "@ant-design/icons";
 import { Route, Switch, RouteProps, Redirect } from "react-router-dom";
 import Loading from "@/components/loading";
 import NotFound from "@/components/404/index";
 import { SiderMenu } from "@/types/SiderMenu";
 import "@/assets/iconfont/iconfont.css";
+const { lazy, Suspense } = React;
 
 export const menuList: SiderMenu[] = [
   {

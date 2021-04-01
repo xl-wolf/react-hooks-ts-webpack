@@ -10,7 +10,7 @@ export default () => {
   useEffect(() => {
     loadModulesRandom(); 
     return () => {
-      clear();
+      clear&&clear();
     };
   }, []);
   const loadModulesRandom = (idx?: number) => {

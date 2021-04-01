@@ -8,7 +8,7 @@ interface HeaderProps {
     changePassWord: () => void //预留修改密码
     toggleCollapsed: () => void //侧边栏收展方法
     collapsed: boolean //侧边栏状态
-    currentPosition: string //当前所在的位置 需要用redux和sessionStorage共同完成
+    currentPosition: string //当前所在的位置
 }
 
 export default (hProps: HeaderProps) => {
