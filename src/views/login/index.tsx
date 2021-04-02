@@ -8,7 +8,7 @@ const { useEffect, useState } = React;
 export default () => {
   let [clear, setclear] = useState(null);
   useEffect(() => {
-    loadModulesRandom(15); 
+    loadModulesRandom(); 
     return () => {
       clear&&clear();
     };
