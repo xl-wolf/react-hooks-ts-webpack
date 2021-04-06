@@ -70,7 +70,7 @@ export default (SiderProps: SiderProps) => {
       </div>
       <Menu
         theme={"dark"}
-        onClick={(item) => menuItemClick(item)}
+        onClick={(item: any) => menuItemClick(item)}
         mode="inline"
         defaultSelectedKeys={defaultSelectedKeys}
         defaultOpenKeys={defaultOpenKeys}
