@@ -5,9 +5,10 @@ import Loading from "@/components/loading";
 import NotFound from "@/components/404/index";
 import { SiderMenu } from "@/types/SiderMenu";
 import "@/assets/iconfont/iconfont.css";
+import { sideMenuApi } from "@/apis/sideMenu";
 const { lazy, Suspense } = React;
 
-export const menuList: SiderMenu[] = [
+let menuList: SiderMenu[] = [
   {
     key: "1",
     title: "首页",
@@ -80,7 +81,23 @@ export const menuList: SiderMenu[] = [
     icon: <i className="iconfont xl-icon-shipin" />,
   },
 ];
-
+const configMenuList = () => {
+  sideMenuApi().then((res: any) => {
+    // console.log(res);
+    const { data } = res;
+    function recursive(menuTree: SiderMenu[]) {
+      menuTree.forEach((menuItem) => {
+        if (menuItem?.children?.length) {
+          recursive(menuItem.children);
+        } 
+        menuItem.show = data[menuItem.key];
+      });
+    }
+    recursive(menuList);
+  });
+};
+configMenuList();
+export { menuList };
 const routers: RouteProps[] = [
   {
     path: "/main/home",

@@ -1,0 +1,14 @@
+{
+  "main": "main.js",
+  "scripts": {
+    "dev": "node main.js",
+    "nodemon": "nodemon main.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.5"
+  },
+  "devDependencies": {
+    "express": "^4.16.4"
+  }
+}

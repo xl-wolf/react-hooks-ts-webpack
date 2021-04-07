@@ -6,6 +6,7 @@ import Footer from "@/components/layout/footer/index";
 import "./index.less";
 import RouterMap from "@/routers/index";
 import { getSession, history, setSession } from "@/utils";
+import { logoutApi } from "@/apis/user";
 const { useState, useEffect, useRef } = React;
 const { Content } = Layout;
 interface LayoutState {
@@ -34,9 +35,12 @@ export default () => {
       content: "确定要退出系统吗?",
       okText: "确定",
       cancelText: "取消",
-      onOk: () => {
-        setSession("appAuth", "false");
-        history.replace("/");
+      onOk: async () => {
+        const { status } = await logoutApi();
+        if (status === 200) {
+          setSession("appAuth", "false");
+          history.replace("/");
+        }
       },
     });
   };
@@ -61,9 +65,7 @@ export default () => {
           currentPosition={getSession("currentLocation")}
         />
         {/* ${routeChange ? "visible" : "not-visible"} */}
-        <Content
-          className={`layout-content`}
-        >
+        <Content className={`layout-content`}>
           {RouterMap(JSON.parse(getSession("appAuth")))}
         </Content>
         <Footer />
