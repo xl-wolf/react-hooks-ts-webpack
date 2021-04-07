@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Layout, Modal } from "antd";
 import Sider from "./sider/index";
 import HeaderComponent from "@/components/layout/header/index";
@@ -6,7 +6,7 @@ import Footer from "@/components/layout/footer/index";
 import "./index.less";
 import RouterMap from "@/routers/index";
 import { getSession, history, setSession } from "@/utils";
-const { useState, useEffect, useRef } = React;
+import { logoutApi } from "@/apis/user";
 const { Content } = Layout;
 interface LayoutState {
   collapsed?: boolean;
@@ -34,9 +34,12 @@ export default () => {
       content: "确定要退出系统吗?",
       okText: "确定",
       cancelText: "取消",
-      onOk: () => {
-        setSession("appAuth", "false");
-        history.replace("/");
+      onOk: async () => {
+        const { status } = await logoutApi();
+        if (status === 200) {
+          setSession("appAuth", "false");
+          history.replace("/");
+        }
       },
     });
   };
@@ -61,9 +64,7 @@ export default () => {
           currentPosition={getSession("currentLocation")}
         />
         {/* ${routeChange ? "visible" : "not-visible"} */}
-        <Content
-          className={`layout-content`}
-        >
+        <Content className={`layout-content`}>
           {RouterMap(JSON.parse(getSession("appAuth")))}
         </Content>
         <Footer />

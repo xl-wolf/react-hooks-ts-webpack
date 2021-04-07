@@ -1,4 +1,4 @@
-import * as React from "react";
+import React,{ useEffect, useState, useRef } from "react";
 import { Popover, Layout } from "antd";
 import {
   MenuUnfoldOutlined,
@@ -7,7 +7,6 @@ import {
 } from "@ant-design/icons";
 const { Header } = Layout;
 import "./index.less";
-const { useEffect, useState, useRef } = React;
 interface HeaderProps {
   getLogout: () => void; //退出登录
   changePassWord: () => void; //预留修改密码

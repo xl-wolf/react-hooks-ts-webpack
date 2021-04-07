@@ -5,15 +5,13 @@
     "module": "commonjs",
     "target": "es5",
     "jsx": "react",
-    "paths": { //配合webpack中的resolve.alias才能生效
-      "@/*": [ "./src/*" ]
+    "paths": {
+      //配合webpack中的resolve.alias才能生效
+      "@/*": ["./src/*"]
     },
-    "allowSyntheticDefaultImports": true
+    "esModuleInterop": true, //加上这两项可以直接写import React 不用写 import * as React
+    "allowSyntheticDefaultImports": true //加上这两项可以直接写import React 不用写 import * as React
   },
-  "include": [
-    "./src/**/*"
-  ],
-  "exclude": [
-    "*/node_modules/*"
-  ],
+  "include": ["./src/**/*"],
+  "exclude": ["*/node_modules/*"]
 }

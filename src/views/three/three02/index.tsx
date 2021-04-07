@@ -1,5 +1,4 @@
-import * as React from "react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { Reflector } from "three/examples/jsm/objects/Reflector.js";
@@ -22,7 +21,7 @@ export default () => {
     init();
     setTimeout(onWindowResize, 0);
     return () => {
-        clearFunc();
+      clearFunc();
       window.removeEventListener("resize", onWindowResize);
     };
   }, []);

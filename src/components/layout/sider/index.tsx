@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import { Layout, Menu } from "antd";
 import { SiderMenu } from "@/types/SiderMenu";
 import { getSession, history, setSession } from "@/utils";

@@ -1,20 +1,20 @@
-import * as React from "react";
-import { Button, Form, Input } from "antd";
+import React, { useEffect, useState } from "react";
+import { Button, Form, Input, message } from "antd";
 import { getSession, history, setSession } from "@/utils";
 import "./index.less";
 import { menuList } from "@/routers";
+import { loginApi, registerApi } from "@/apis/user";
 const { Item: FormItem } = Form;
-const { useEffect, useState } = React;
 export default () => {
   let [clear, setclear] = useState(null);
   useEffect(() => {
-    loadModulesRandom(); 
+    loadModulesRandom();
     return () => {
-      clear&&clear();
+      clear && clear();
     };
   }, []);
   const loadModulesRandom = (idx?: number) => {
-    const random = idx || Math.ceil(Math.random() * 15);
+    const random = idx || Math.ceil(Math.random() * 14);
     switch (random) {
       case 1:
         import("./plugins/canvas01").then(({ drawCanvas, clearFunc }) => {
@@ -110,67 +110,69 @@ export default () => {
         break;
     }
   };
-  const login = () => {
-    setSession("appAuth", "true");
-    const sessionMenuItem = JSON.parse(getSession("currentMenuItem"));
-    if (sessionMenuItem) {
-      const { path } = sessionMenuItem;
-      return history.push("/main" + path);
+
+  const login = async (values: any) => {
+    console.log(values);
+    const { status } = await loginApi(values);
+    if (status === 200) {
+      setSession("appAuth", "true");
+      const sessionMenuItem = JSON.parse(getSession("currentMenuItem"));
+      if (sessionMenuItem) {
+        const { path } = sessionMenuItem;
+        return history.push("/main" + path);
+      }
+      setSession("currentLocation", menuList[0].title);
+      setSession("currentMenuItem", JSON.stringify(menuList[0]));
+      history.push("/main/home");
+      return;
     }
-    setSession("currentLocation", menuList[0].title);
-    setSession("currentMenuItem", JSON.stringify(menuList[0]));
-    history.push("/main/home");
+    registerApi(values);
   };
+
   return (
     <div id="form-bg">
       <div className="form">
         <div className="logo">
           <h2>管理系统模板</h2>
         </div>
-        <Form>
+        <Form onFinish={login} name="basic">
           <FormItem
             label="账号:"
             name="userName"
             rules={[
               {
+                required: true,
                 len: 11,
                 message: "请输入11位的手机号!",
               },
               {
+                required: true,
                 pattern: new RegExp("^[0-9]*$"),
                 message: "手机号只能为数字!",
               },
             ]}
           >
-            <Input placeholder="请输入手机号" allowClear maxLength={11} />
+            <Input placeholder="请输入手机号" allowClear />
           </FormItem>
           <FormItem
-            label="密码"
+            label="密码:"
             name="password"
             rules={[
               {
+                required: true,
                 min: 6,
                 max: 20,
                 message: "请输入6-20位的密码!",
               },
             ]}
           >
-            <Input
-              type="password"
-              placeholder="请输入密码"
-              minLength={6}
-              maxLength={20}
-              allowClear
-            />
+            <Input type="password" placeholder="请输入密码" allowClear />
           </FormItem>
-          <Button
-            type="primary"
-            htmlType="submit"
-            style={{ width: "100%" }}
-            onClick={login}
-          >
-            登录
-          </Button>
+          <FormItem>
+            <Button type="primary" htmlType="submit" style={{ width: "100%" }}>
+              登录/注册
+            </Button>
+          </FormItem>
         </Form>
       </div>
     </div>

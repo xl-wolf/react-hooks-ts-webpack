@@ -1,5 +1,4 @@
-import * as React from "react";
-const { useState, useEffect } = React;
+import React, { useState, useEffect } from "react";
 import "./index.less";
 export default () => {
   const videos = [
@@ -20,15 +19,15 @@ export default () => {
     "https://stream7.iqilu.com/10339/upload_transcode/202002/17/20200217101826WjyFCbUXQ2.mp4",
   ];
   let [currentVideoSrc, setcurrentVideoSrc] = useState(videos[0]);
-//   const playVideo = () => {
-//     setcurrentVideoSrc((currentVideoSrc = videos[7]));
-//   };
-//   useEffect(() => {
-//     setTimeout(() => {
-//       playVideo();
-//     }, 40000);
-//     return () => {};
-//   }, []);
+  //   const playVideo = () => {
+  //     setcurrentVideoSrc((currentVideoSrc = videos[7]));
+  //   };
+  //   useEffect(() => {
+  //     setTimeout(() => {
+  //       playVideo();
+  //     }, 40000);
+  //     return () => {};
+  //   }, []);
   return (
     <div className="video-wrapper">
       <video

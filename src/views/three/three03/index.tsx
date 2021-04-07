@@ -1,5 +1,4 @@
-import * as React from "react";
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import * as Three from "three";
 import { TWEEN } from "three/examples/jsm/libs/tween.module.min.js";
 import { TrackballControls } from "three/examples/jsm/controls/TrackballControls.js";

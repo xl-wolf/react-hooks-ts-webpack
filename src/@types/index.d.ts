@@ -25,6 +25,7 @@ declare module 'three/examples/jsm/geometries/LightningStrike.js';
 declare module 'three/examples/jsm/postprocessing/OutlinePass.js';
 declare module "three/examples/jsm/postprocessing/ShaderPass.js";
 declare module "three/examples/jsm/postprocessing/UnrealBloomPass.js";
+declare module "axios";
 declare const TrackballControls: any;
 declare const TWEEN: any;
 declare const BMap: any;
