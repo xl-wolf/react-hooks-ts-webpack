@@ -8,7 +8,7 @@ const { Item: FormItem } = Form;
 export default () => {
   let [clear, setclear] = useState(null);
   useEffect(() => {
-    loadModulesRandom();
+    loadModulesRandom(); //2 4 7 14 15
     return () => {
       clear && clear();
     };
@@ -23,7 +23,7 @@ export default () => {
         });
         break;
       case 2:
-        import("./plugins/canvas02").then(({ drawCanvas, clearFunc }) => {
+        import("./plugins/canvas01").then(({ drawCanvas, clearFunc }) => {
           setclear((clear = clearFunc));
           drawCanvas("form-bg");
         });
@@ -35,7 +35,7 @@ export default () => {
         });
         break;
       case 4:
-        import("./plugins/canvas04").then(({ drawCanvas, clearFunc }) => {
+        import("./plugins/canvas03").then(({ drawCanvas, clearFunc }) => {
           setclear((clear = clearFunc));
           drawCanvas("form-bg");
         });
@@ -53,7 +53,7 @@ export default () => {
         });
         break;
       case 7:
-        import("./plugins/canvas07").then(({ drawCanvas, clearFunc }) => {
+        import("./plugins/canvas06").then(({ drawCanvas, clearFunc }) => {
           setclear((clear = clearFunc));
           drawCanvas("form-bg");
         });
@@ -95,13 +95,13 @@ export default () => {
         });
         break;
       case 14:
-        import("./plugins/webgl06").then(({ drawCanvas, clearFunc }) => {
+        import("./plugins/webgl05").then(({ drawCanvas, clearFunc }) => {
           setclear((clear = clearFunc));
           drawCanvas("form-bg");
         });
         break;
       case 15:
-        import("./plugins/webgl07").then(({ drawCanvas, clearFunc }) => {
+        import("./plugins/webgl05").then(({ drawCanvas, clearFunc }) => {
           setclear((clear = clearFunc));
           drawCanvas("form-bg");
         });
@@ -112,7 +112,6 @@ export default () => {
   };
 
   const login = async (values: any) => {
-    console.log(values);
     const { status } = await loginApi(values);
     if (status === 200) {
       setSession("appAuth", "true");
