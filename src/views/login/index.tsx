@@ -1,9 +1,10 @@
 import * as React from "react";
-import { Button, Form, Input, message } from "antd";
-import { getSession, history, setSession } from "@/utils";
+import { Button, Form, Input } from "antd";
 import "./index.less";
-import { menuList } from "@/routers";
-import { loginApi, registerApi } from "@/apis/user";
+import { account } from "@/types/account";
+import { loginAction, MenuAuthAction } from "@/store/actions/index";
+import { getSession, history, setSession } from "@/utils";
+import store from "@/store";
 const { Item: FormItem } = Form;
 const { useEffect, useState } = React;
 export default () => {
@@ -112,22 +113,26 @@ export default () => {
     }
   };
 
-  const login = async (values: any) => {
-    console.log(values);
-    const { status } = await loginApi(values);
-    if (status === 200) {
-      setSession("appAuth", "true");
-      const sessionMenuItem = JSON.parse(getSession("currentMenuItem"));
-      if (sessionMenuItem) {
-        const { path } = sessionMenuItem;
-        return history.push("/main" + path);
-      }
-      setSession("currentLocation", menuList[0].title);
-      setSession("currentMenuItem", JSON.stringify(menuList[0]));
-      history.push("/main/home");
-      return;
+  const login = async (account: account) => {
+    const ReduxActionRes = await loginAction(account);
+    const ReduxActionRes2 = await MenuAuthAction();
+    store.dispatch(ReduxActionRes);
+    store.dispatch(ReduxActionRes2);
+    console.log(store.getState());
+    setSession("appAuth", "true");
+    const sessionMenuItem = JSON.parse(getSession("currentMenuItem"));
+    const {
+      sideMenu: { data: menuList },
+    } = store.getState();
+    setSession("menuList", JSON.stringify(menuList));
+    if (sessionMenuItem) {
+      const { path } = sessionMenuItem;
+      return history.push("/main" + path);
     }
-    registerApi(values);
+
+    setSession("currentLocation", menuList[0].title);
+    setSession("currentMenuItem", JSON.stringify(menuList[0]));
+    history.push("/main/home");
   };
 
   return (
@@ -179,3 +184,10 @@ export default () => {
     </div>
   );
 };
+// const mapStateToProps = (state: any) => state.user;
+// const mapDispatchToProps = (dispatch: any) => {
+//   return {
+//     loginAction: (account: account) => dispatch({ account, type: "LOGIN" }),
+//   };
+// };
+// export default connect(mapStateToProps, mapDispatchToProps)(LoginFC);

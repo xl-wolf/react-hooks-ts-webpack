@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import 'antd/dist/antd.css'
-import Layout from '@/components/layout/index';
 import Loading from '@/components/loading'
 const { lazy, Suspense } = React;
 const Login = lazy(() => import( /* webpackChunkName:"login" */'@/views/login/index'))
 const NotFound = lazy(() => import( /* webpackChunkName:"404" */'@/components/404/index'))
+const Layout = lazy(() => import( /* webpackChunkName:"404" */'@/components/layout/index'))
 export default () => {
   return <Router>
     <Suspense fallback={<Loading size="large" />}>

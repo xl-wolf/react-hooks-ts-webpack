@@ -6,8 +6,8 @@ router.use(bodyParser.urlencoded({ extended: false }));
 // 
 router.get("/menu", (req, res) => {
   // console.log(req.query)
-  const menu = require('../../localdb/menuAuth.json')
-  res.status(200).send({ status: 200, msg: "获取菜单成功",data:menu });
+  const menuAuth = require('../../localdb/menuAuth.json')
+  res.status(200).send({ status: 200, msg: "获取菜单成功", data: menuAuth });
 });
 
 module.exports = router;
