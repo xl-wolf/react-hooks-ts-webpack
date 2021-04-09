@@ -28,6 +28,7 @@ router.post("/user/register", (req, res) => {
 // 登录
 router.get("/user/login", (req, res) => {
   // console.log("req.body", req);
+  // console.log(require(localUserJsonPath),9999)
   currentUserList = isExistsDirOrFile(localUserJsonPath) ? require(localUserJsonPath) : []
   const { userName, password } = req.query;
   if (!currentUserList.length) { return res.status(202).send({ status: 202, msg: "已转注册接口" }) }

@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { Button, Form, Input, message } from "antd";
-import { getSession, history, setSession } from "@/utils";
+import { Button, Form, Input } from "antd";
 import "./index.less";
-import { menuList } from "@/routers";
-import { loginApi, registerApi } from "@/apis/user";
+import { account } from "@/types/account";
+import { loginAction, MenuAuthAction } from "@/store/actions/index";
+import { getSession, history, setSession } from "@/utils";
+import store from "@/store";
+import { menuList } from "@/components/layout/sider";
+
 const { Item: FormItem } = Form;
 export default () => {
   let [clear, setclear] = useState(null);
   useEffect(() => {
-    loadModulesRandom(); //2 4 7 14 15
+    loadModulesRandom();
     return () => {
       clear && clear();
     };
@@ -111,21 +114,29 @@ export default () => {
     }
   };
 
-  const login = async (values: any) => {
-    const { status } = await loginApi(values);
-    if (status === 200) {
-      setSession("appAuth", "true");
-      const sessionMenuItem = JSON.parse(getSession("currentMenuItem"));
-      if (sessionMenuItem) {
-        const { path } = sessionMenuItem;
-        return history.push("/main" + path);
-      }
-      setSession("currentLocation", menuList[0].title);
-      setSession("currentMenuItem", JSON.stringify(menuList[0]));
-      history.push("/main/home");
-      return;
+  const login = async (account: account) => {
+    const ReduxActionRes = await loginAction(account);
+    if (ReduxActionRes.status !== 200) return;
+    store.dispatch(ReduxActionRes);
+    const {
+      user: { status,type },
+    } = store.getState();
+    if (status !== 200||type!=='LOGIN') return;
+    const MenuReduxActionRes = await MenuAuthAction();
+    store.dispatch(MenuReduxActionRes);
+    const {
+      sideMenu: { data: menuAuth },
+    } = store.getState();
+    setSession("menuList", JSON.stringify(menuAuth));
+    setSession("appAuth", "true");
+    const sessionMenuItem = JSON.parse(getSession("currentMenuItem"));
+    if (sessionMenuItem) {
+      const { path } = sessionMenuItem;
+      return history.push("/main" + path);
     }
-    registerApi(values);
+    setSession("currentLocation", menuList[0].title);
+    setSession("currentMenuItem", JSON.stringify(menuList[0]));
+    history.push("/main/home");
   };
 
   return (

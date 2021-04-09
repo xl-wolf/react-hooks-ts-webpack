@@ -38,6 +38,11 @@ request.interceptors.response.use(
   },
   (error: Error) => {
     message.destroy(loadingKey);
+    // message.error({
+    //   content: error,
+    //   duration: 3,
+    //   key: "error",
+    // });
     console.log("err" + error); // for debug
     return Promise.reject(error);
   }
