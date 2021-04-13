@@ -51,6 +51,11 @@ const routers: RouteProps[] = [
     component: lazy(() => import("@/views/video-flv/index")),
   },
   {
+    path: "/main/admin",
+    exact: true,
+    component: lazy(() => import("@/views/admin/index")),
+  },
+  {
     path: "*",
     component: NotFound,
   },

@@ -5,9 +5,18 @@ import { account } from "@/types/account";
 import { loginAction, MenuAuthAction } from "@/store/actions/index";
 import { getSession, history, setSession } from "@/utils";
 import store from "@/store";
-import { menuList } from "@/components/layout/sider";
+import { menuList, renderMenu } from "@/components/layout/sider";
 
 const { Item: FormItem } = Form;
+export const dispatchMenuAuthAction = async () => {
+  const MenuReduxActionRes = await MenuAuthAction();
+  store.dispatch(MenuReduxActionRes);
+  const {
+    sideMenu: { data: menuAuth },
+  } = store.getState();
+  setSession("menuList", JSON.stringify(menuAuth));
+  renderMenu()
+};
 export default () => {
   let [clear, setclear] = useState(null);
   useEffect(() => {
@@ -113,21 +122,16 @@ export default () => {
         break;
     }
   };
-
+ 
   const login = async (account: account) => {
     const ReduxActionRes = await loginAction(account);
     if (ReduxActionRes.status !== 200) return;
     store.dispatch(ReduxActionRes);
     const {
-      user: { status,type },
+      user: { status, type },
     } = store.getState();
-    if (status !== 200||type!=='LOGIN') return;
-    const MenuReduxActionRes = await MenuAuthAction();
-    store.dispatch(MenuReduxActionRes);
-    const {
-      sideMenu: { data: menuAuth },
-    } = store.getState();
-    setSession("menuList", JSON.stringify(menuAuth));
+    if (status !== 200 || type !== "LOGIN") return;
+    dispatchMenuAuthAction();
     setSession("appAuth", "true");
     const sessionMenuItem = JSON.parse(getSession("currentMenuItem"));
     if (sessionMenuItem) {

@@ -78,12 +78,31 @@ export const menuList: any[] = [
     show: true,
     icon: <i className="iconfont xl-icon-shipin" />,
   },
+  {
+    key: "7",
+    title: "权限管理",
+    path: "/admin",
+    show: true,
+    icon: <i className="iconfont xl-icon-quanxian" />,
+  },
 ];
-interface SiderProps {
+interface ISiderProps {
   collapsed: boolean;
 }
-
-export default (SiderProps: SiderProps) => {
+const recursive = (menuTree: any[], authData: any) => {
+  menuTree.forEach((menuItem) => {
+    if (menuItem?.children?.length) {
+      recursive(menuItem.children, authData);
+    }
+    menuItem.show = authData[menuItem.key];
+  });
+};
+export const renderMenu = () => {
+  const sessionMenuList = getSession("menuList") && JSON.parse(getSession("menuList"));
+  sessionMenuList && recursive(menuList, sessionMenuList);
+};
+renderMenu()
+export default (SiderProps: ISiderProps) => {
   const { collapsed } = SiderProps;
   const recursiveFindCurMenuItem = (list: any[], curItem: any): any => {
     for (let i = 0; i < list.length; i++) {
@@ -125,19 +144,6 @@ export default (SiderProps: SiderProps) => {
       }
     });
   };
-
-  const recursive = (menuTree: any[], authData: any) => {
-    menuTree.forEach((menuItem) => {
-      if (menuItem?.children?.length) {
-        recursive(menuItem.children, authData);
-      }
-      menuItem.show = authData[menuItem.key];
-    });
-  };
-
-  const sessionMenuList =
-    getSession("menuList") && JSON.parse(getSession("menuList"));
-  sessionMenuList && recursive(menuList, sessionMenuList);
 
   let defaultSelectedKeys;
   let defaultOpenKeys;

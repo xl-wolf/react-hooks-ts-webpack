@@ -16,17 +16,10 @@ export default () => {
   const initLayoutState: LayoutState = {
     collapsed: JSON.parse(getSession("siderCollapsed")),
   };
-  //   const timer = useRef(null);
-  //   let [routeChange, setrouteChange] = useState(false);
   const [layoutState, setLayoutState] = useState(initLayoutState);
   const { collapsed } = layoutState;
   useEffect(() => {
-    // timer.current = setTimeout(() => setrouteChange((routeChange = true)), 1000);
-    return () => {
-      //   clearTimeout(timer.current);
-      //   timer.current = null;
-      //   setrouteChange((routeChange = false));
-    };
+    return () => {};
   }, [getSession("currentLocation")]);
   const logout = () => {
     Modal.confirm({
@@ -63,7 +56,6 @@ export default () => {
           collapsed={collapsed}
           currentPosition={getSession("currentLocation")}
         />
-        {/* ${routeChange ? "visible" : "not-visible"} */}
         <Content className={`layout-content`}>
           {RouterMap(JSON.parse(getSession("appAuth")))}
         </Content>
