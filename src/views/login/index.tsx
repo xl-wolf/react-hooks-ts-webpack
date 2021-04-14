@@ -2,22 +2,16 @@ import React, { useEffect, useState } from "react";
 import { Button, Form, Input } from "antd";
 import "./index.less";
 import { account } from "@/types/account";
-import { loginAction, MenuAuthAction } from "@/store/actions/index";
+import { loginAction } from "@/store/actions/index";
 import { getSession, history, setSession } from "@/utils";
 import store from "@/store";
-import { menuList, renderMenu } from "@/components/layout/sider";
+import { dispatchMenuAuthAction } from "@/store/actions/sideMenu";
 
 const { Item: FormItem } = Form;
-export const dispatchMenuAuthAction = async () => {
-  const MenuReduxActionRes = await MenuAuthAction();
-  store.dispatch(MenuReduxActionRes);
-  const {
-    sideMenu: { data: menuAuth },
-  } = store.getState();
-  setSession("menuList", JSON.stringify(menuAuth));
-  renderMenu()
-};
+
 export default () => {
+  const {sideMenu:menuList} = store.getState()
+  console.log(menuList,'login')
   let [clear, setclear] = useState(null);
   useEffect(() => {
     loadModulesRandom();

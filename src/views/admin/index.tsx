@@ -1,22 +1,26 @@
 import React, { useState, useEffect } from "react";
-import { menuList } from "@/components/layout/sider";
 import "./index.less";
 import { Switch } from "antd";
 import { putSideMenuApi } from "@/apis/sideMenu";
-import { dispatchMenuAuthAction } from "../login";
+import store from "@/store";
+import { dispatchMenuAuthAction } from "@/store/actions/sideMenu";
 export default () => {
-  const onChange = async (routeItem:any,checked: boolean) => {
-    console.log(routeItem,`switch to ${checked}`);
-    await putSideMenuApi(routeItem)
-    dispatchMenuAuthAction()
+  const { sideMenu: menuList } = store.getState();
+  const onChange = async (routeItem: any, checked: boolean) => {
+    console.log(routeItem, `switch to ${checked}`);
+    await putSideMenuApi(routeItem);
+    dispatchMenuAuthAction();
   };
   return (
     <div className="admin-wrapper">
-      {menuList.map((route: any) => {
+      {menuList?.map((route: any) => {
         return (
           <div className="admin-item" key={route.key}>
             <span className="label">{route.title}</span>
-            <Switch checked={route.show} onChange={onChange.bind(null,route)} />
+            <Switch
+              checked={route.show}
+              onChange={() => onChange(route, route.show)}
+            />
           </div>
         );
       })}
