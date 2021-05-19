@@ -7,7 +7,7 @@ create this project to study ```react and typescript``` systematicly
 git clone https://github.com/xl-wolf/react-hooks-ts-webpack.git
 
 # enter the project directory
-cd https://github.com/xl-wolf/react-hooks-ts-webpack.git
+cd ./react-hooks-ts-webpack
 
 # install dependency
 npm install
