@@ -21,91 +21,91 @@ export default () => {
     switch (random) {
       case 1:
         import("./plugins/canvas01").then(({ drawCanvas, clearFunc }) => {
-          setclear((clear = clearFunc));
+          setclear(clearFunc);
           drawCanvas("form-bg");
         });
         break;
       case 2:
         import("./plugins/canvas01").then(({ drawCanvas, clearFunc }) => {
-          setclear((clear = clearFunc));
+          setclear(clearFunc);
           drawCanvas("form-bg");
         });
         break;
       case 3:
         import("./plugins/canvas03").then(({ drawCanvas, clearFunc }) => {
-          setclear((clear = clearFunc));
+          setclear(clearFunc);
           drawCanvas("form-bg");
         });
         break;
       case 4:
         import("./plugins/canvas03").then(({ drawCanvas, clearFunc }) => {
-          setclear((clear = clearFunc));
+          setclear(clearFunc);
           drawCanvas("form-bg");
         });
         break;
       case 5:
         import("./plugins/canvas05").then(({ drawCanvas, clearFunc }) => {
-          setclear((clear = clearFunc));
+          setclear(clearFunc);
           drawCanvas("form-bg");
         });
         break;
       case 6:
         import("./plugins/canvas06").then(({ drawCanvas, clearFunc }) => {
-          setclear((clear = clearFunc));
+          setclear(clearFunc);
           drawCanvas("form-bg");
         });
         break;
       case 7:
         import("./plugins/canvas06").then(({ drawCanvas, clearFunc }) => {
-          setclear((clear = clearFunc));
+          setclear(clearFunc);
           drawCanvas("form-bg");
         });
         break;
       case 8:
         import("./plugins/canvas08").then(({ drawCanvas, clearFunc }) => {
-          setclear((clear = clearFunc));
+          setclear(clearFunc);
           drawCanvas("form-bg");
         });
         break;
       case 9:
         import("./plugins/webgl01").then(({ drawCanvas, clearFunc }) => {
-          setclear((clear = clearFunc));
+          setclear(clearFunc);
           drawCanvas("form-bg");
         });
         break;
       case 10:
         import("./plugins/webgl02").then(({ drawCanvas, clearFunc }) => {
-          setclear((clear = clearFunc));
+          setclear(clearFunc);
           drawCanvas("form-bg");
         });
         break;
       case 11:
         import("./plugins/webgl03").then(({ drawCanvas, clearFunc }) => {
-          setclear((clear = clearFunc));
+          setclear(clearFunc);
           drawCanvas("form-bg");
         });
         break;
       case 12:
         import("./plugins/webgl04").then(({ drawCanvas, clearFunc }) => {
-          setclear((clear = clearFunc));
+          setclear(clearFunc);
           drawCanvas("form-bg");
         });
         break;
       case 13:
         import("./plugins/webgl05").then(({ drawCanvas, clearFunc }) => {
-          setclear((clear = clearFunc));
+          setclear(clearFunc);
           drawCanvas("form-bg");
         });
         break;
       case 14:
         import("./plugins/webgl05").then(({ drawCanvas, clearFunc }) => {
-          setclear((clear = clearFunc));
+          setclear(clearFunc);
           drawCanvas("form-bg");
         });
         break;
       case 15:
         import("./plugins/webgl05").then(({ drawCanvas, clearFunc }) => {
-          setclear((clear = clearFunc));
+          setclear(clearFunc);
           drawCanvas("form-bg");
         });
         break;
@@ -119,15 +119,15 @@ export default () => {
     if (ReduxActionRes.status !== 200) return;
     store.dispatch(ReduxActionRes);
     const {
-      user: { status,type },
+      user: { status, type },
     } = store.getState();
-    if (status !== 200||type!=='LOGIN') return;
-    const MenuReduxActionRes = await MenuAuthAction();
-    store.dispatch(MenuReduxActionRes);
-    const {
-      sideMenu: { data: menuAuth },
-    } = store.getState();
-    setSession("menuList", JSON.stringify(menuAuth));
+    if (status !== 200 || type !== 'LOGIN') return;
+    // const MenuReduxActionRes = await MenuAuthAction();
+    // store.dispatch(MenuReduxActionRes);
+    // const {
+    //   sideMenu: { data: menuAuth },
+    // } = store.getState();
+    // setSession("menuList", JSON.stringify(menuAuth));
     setSession("appAuth", "true");
     const sessionMenuItem = JSON.parse(getSession("currentMenuItem"));
     if (sessionMenuItem) {

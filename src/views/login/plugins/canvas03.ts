@@ -3,13 +3,13 @@ const canvas: any = document.createElement("canvas");
 let aRain: any = []; //存放雨滴
 let w: any, h: any;
 
-function setSize() {
-  w = window.innerWidth;
-  h = window.innerHeight;
+function setSize(dom:any) {
+  w = dom.offsetWidth;
+  h = dom.offsetHeight;
   canvas.width = w;
   canvas.height = h;
 }
-window.addEventListener("resize", setSize);
+
 //获取能操作画布的对象，可以说是画笔
 const canCon = canvas.getContext("2d");
 canCon.fillStyle = "aqua"; //设置画笔颜色
@@ -80,7 +80,8 @@ export const drawCanvas = (domId: string) => {
   dom.appendChild(canvas);
   dom.style.backgroundColor = "#000";
   createRain(66);
-  setSize();
+  setSize(dom);
+  window.addEventListener("resize", ()=>setSize(dom));
   intervalId = startInterval();
 };
 export const clearFunc = () => {

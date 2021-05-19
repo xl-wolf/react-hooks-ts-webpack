@@ -68,14 +68,14 @@ export const menuList: any[] = [
     key: "5",
     title: "原生视频播放器",
     path: "/video",
-    show: true,
+    show: false,
     icon: <i className="iconfont xl-icon-shipin" />,
   },
   {
     key: "6",
     title: "video.js视频播放器",
     path: "/video-video.js",
-    show: true,
+    show: false,
     icon: <i className="iconfont xl-icon-shipin" />,
   },
 ];
