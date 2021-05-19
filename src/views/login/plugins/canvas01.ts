@@ -1,6 +1,6 @@
 // 可调参数
-const BACKGROUND_COLOR = "rgba(0,0,0,1)"; // 背景颜色
-// const BACKGROUND_COLOR = "rgba(0,43,54,1)"; // 背景颜色
+// const BACKGROUND_COLOR = "rgba(0,0,0,1)"; // 背景颜色
+const BACKGROUND_COLOR = "rgba(0,43,54,1)"; // 背景颜色
 const POINT_NUM = 150; // 星星数目
 const POINT_COLOR = "rgba(0,255,255,0.9)"; // 点的颜色
 // const POINT_COLOR = "rgba(255,255,255,0.7)"; // 点的颜色
@@ -8,8 +8,6 @@ const LINE_LENGTH = 10000; // 点之间连线长度(的平方)
 
 // 创建背景画布
 const canvas = document.createElement("canvas");
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
 canvas.style.cssText =
   "\
     position:fixed;\
@@ -18,7 +16,6 @@ canvas.style.cssText =
     z-index:-1;\
     opacity:1.0;\
     ";
-document.body.appendChild(canvas);
 
 const ctx = canvas.getContext("2d");
 
@@ -126,10 +123,10 @@ function drawLine(p1: any, p2: any, deg: number) {
 }
 
 //绘制每一帧
-let animationFrameId:any = null
-function drawFrame() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+let animationFrameId: any = null
+function drawFrame(domId: string) {
+  canvas.width = document.getElementById(domId).offsetWidth
+  canvas.height = document.getElementById(domId).offsetHeight
   ctx.fillStyle = BACKGROUND_COLOR;
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -141,15 +138,18 @@ function drawFrame() {
     arr[i].draw();
     arr[i].move();
   }
-  
+
   clearFunc()
-  animationFrameId = requestAnimationFrame(drawFrame);
+  animationFrameId = requestAnimationFrame(() => drawFrame(domId));
 }
 
 export const drawCanvas = (domId: string) => {
+  canvas.width = document.getElementById(domId).offsetWidth
+  canvas.height = document.getElementById(domId).offsetHeight
   document.getElementById(domId).appendChild(canvas);
+  console.log(document.getElementById(domId).offsetWidth, document.getElementById(domId).offsetHeight, 7777)
   initPoints(POINT_NUM);
-  drawFrame();
+  drawFrame(domId);
 };
 export const clearFunc = () => {
   animationFrameId && cancelAnimationFrame(animationFrameId);

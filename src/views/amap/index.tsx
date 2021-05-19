@@ -34,14 +34,14 @@ export default () => {
       mapStyle: style2, //自定义地图样式，需要线上定制发布后使用
     });
     // 浏览器获取当前定位
-    const cur: any = await getCurrentPosition();
-    console.log(cur);
-    if (cur) {
-      const {
-        position: { lng, lat },
-      } = cur;
-      setcurrentPosition((currentPosition = [lng, lat]));
-    }
+    // const cur: any = await getCurrentPosition();
+    // console.log(cur);
+    // if (cur) {
+    //   const {
+    //     position: { lng, lat },
+    //   } = cur;
+    //   setcurrentPosition((currentPosition = [lng, lat]));
+    // }
     // 添加点标记
     const icon = new AMap.Icon({
       size: new AMap.Size(48, 48),
@@ -54,7 +54,7 @@ export default () => {
     const circleOpt = {
       map: mapRef,
       center: currentPosition,
-      radius: 100,
+      radius: 3000,
       strokeColor: "#0ff",
       strokeOpacity: 1,
       strokeWeight: 2,
@@ -96,7 +96,7 @@ export default () => {
       const circleOpt = {
         map: mapRef,
         center: currentPosition,
-        radius: 200,
+        radius: 3000,
         strokeColor: "#0ff",
         strokeOpacity: 1,
         strokeWeight: 2,
@@ -188,15 +188,15 @@ export default () => {
         imageOffset: new AMap.Pixel(0, 0),
       });
       const position = [
-        currentPosition[0] + (Math.random() - 0.5) * 0.002,
-        currentPosition[1] + (Math.random() - 0.5) * 0.002,
+        currentPosition[0] + (Math.random() - 0.5) * 0.02,
+        currentPosition[1] + (Math.random() - 0.5) * 0.05,
       ];
       const marker = addAMapMarker(icon, position);
       marker.dataId = i + "dataId";
       currentMarkersArray.push(marker);
       marker.on("click", function () {
-        // console.log(this)
-        const { position } = this.Ce;
+        console.log(this)
+        const { position } = this.Ce||this.De;
         // console.log(this, position)
         this.contentInfo = `建行厦门科技支行${this.dataId}`;
         const content = `<div style='cursor:pointer;' id=${this.dataId}>${this.contentInfo}</div>`;
@@ -243,7 +243,7 @@ export default () => {
   };
   // 画圆
   const drawCircle = (circleOpt: any) => {
-    setcircle((circle = new AMap.Circle(circleOpt)));
+    circle = new AMap.Circle(circleOpt);
   };
   // 移除圆
   const removeCircle = () => {
