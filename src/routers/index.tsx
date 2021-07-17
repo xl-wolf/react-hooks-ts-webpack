@@ -51,6 +51,11 @@ const routers: RouteProps[] = [
     component: lazy(() => import("@/views/video-flv/index")),
   },
   {
+    path: "/main/dynamic-form",
+    exact: true,
+    component: lazy(() => import("@/views/dynamicForm/index")),
+  },
+  {
     path: "*",
     component: NotFound,
   },

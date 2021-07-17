@@ -78,6 +78,13 @@ export const menuList: any[] = [
     show: false,
     icon: <i className="iconfont xl-icon-shipin" />,
   },
+  {
+    key: "7",
+    title: "动态表单",
+    path: "/dynamic-form",
+    show: true,
+    icon: <i className="iconfont xl-icon-shipin" />,
+  },
 ];
 interface SiderProps {
   collapsed: boolean;
